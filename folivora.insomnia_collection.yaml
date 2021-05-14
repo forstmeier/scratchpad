@@ -1,0 +1,1105 @@
+_type: export
+__export_format: 4
+__export_date: 2020-12-31T16:51:05.225Z
+__export_source: insomnia.desktop.app:v2020.5.2
+resources:
+  - _id: req_67265445fe7a4a679df8b156d58a6223
+    parentId: fld_39786b6fa66b452c9a92cda4ef7cc451
+    modified: 1609369021957
+    created: 1609368747762
+    url: http://127.0.0.1:8080/graphql
+    name: customAddBloodSpecimenUpdate
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation CustomAddBloodSpecimenUpdate($orgID: String!,
+        $bloodSpecimenID: String!, $bloodType: String, $container: String,
+        $volume: Float, $description: String)
+        {\n  customAddBloodSpecimenUpdate(orgID: $orgID, bloodSpecimenID:
+        $bloodSpecimenID, bloodType: $bloodType, container: $container, volume:
+        $volume, description: $description)
+        {\n    id\n    bloodType\n  }\n}\n","variables":{},"operationName":"CustomAddBloodSpecimenUpdate"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_41fc37cf588d41a0b96432ba4fa541c9
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHgyNzEzIiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzBUMjI6NDg6MDkuMTE1WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTM2ODQ4OSwiZXhwIjoxNjA5NDA0NDg5fQ.Oq3xlrZOyZQSAReOGjw-ORNRtrkOpKmPgEZ9zRjfCZo9nKuqVpUX1psjV4cI0bjLhJLn_Oxscln_rAMCren0Hg9NojI1UxdzfGmuXxxi2Z08PnGUCQov7NOFnxjvLhlq4eWrVVEZy3wXml7ITGAnFOwprehdzT9fVrI61hMlXJxfjyTf1qK_zKdSM9C2kGDUkC7BmtH7A1Oap-YZoVGcbPwIvbVv8EVKpm6-ZVdPSpbI0dnR9fI1UZ5Q-FJTg_D0EhXf3bjXF9DtQUAkVWd4Z1-DF2dhExq0M0IPRG8W6ATo8XU3oRWfrEZW5inMW3xKmivZvbkv6EEloDqk__ZyPw
+        description: ""
+        id: pair_6d2be37f687b47958e144453dcf3e824
+      - name: folivora-custom-secret
+        value: a1b9a47d-783a-4dd0-8eb4-64b0f6766d97
+        description: ""
+        id: pair_df42b7901b2a4964bcb55a19486ed116
+    authentication: {}
+    metaSortKey: -1609368747762
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_39786b6fa66b452c9a92cda4ef7cc451
+    parentId: fld_84f3fc2d42e3416db6a3dbc47b361bd0
+    modified: 1607744444478
+    created: 1607744444478
+    name: mutations
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1607744444478
+    _type: request_group
+  - _id: fld_84f3fc2d42e3416db6a3dbc47b361bd0
+    parentId: fld_c4b7d072c9074680ac0bdd6edb4573a9
+    modified: 1607744426833
+    created: 1601780421141
+    name: db
+    description: >-
+      ### Description
+
+
+      This is a collection primarily for directly manipulating the contents of the database individually. These are for "one-off" mutations/queries and are _not_ for any specific testing or demoing scenario.
+
+
+      See the `backend/demo` package for bulk data upload.
+
+
+      ### Notes
+
+
+      For the `User` type there are both:
+
+
+      - GraphQL-generated "CRUD" methods (e.g. `addUser`)
+
+      - Folivora-specific `@custom` directive methods (e.g. `createUser`)
+
+
+      Note that the latter requires some additional setup including the `folivora-helper-secret` header.
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421166
+    _type: request_group
+  - _id: fld_c4b7d072c9074680ac0bdd6edb4573a9
+    parentId: fld_8872001d441c4354af322ed9ef507a4d
+    modified: 1601780421142
+    created: 1601780421142
+    name: backend
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421142
+    _type: request_group
+  - _id: fld_8872001d441c4354af322ed9ef507a4d
+    parentId: wrk_883c8c6e41144bbdb22935fbe73b012c
+    modified: 1601780426307
+    created: 1601780426307
+    name: folivora
+    description: >-
+      This is a collection of requests that can be used to:
+
+      - add one-off data to a running instance of the `backend` package
+
+      - update bulk-loaded resources for testing purposes
+
+      - directly manipulate data where the `frontend` package does not provide that support
+
+
+      In order to provide correct authentication while testing, the `frontend` package will need to be started (see the package documentation for reference) and logged into - in the browser console on the "Network" tab the `token` request will contain the Auth0 JWT that can be added to the `X-Auth0-Token` field on requests.
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780426307
+    _type: request_group
+  - _id: wrk_883c8c6e41144bbdb22935fbe73b012c
+    parentId: null
+    modified: 1601780397465
+    created: 1601780397465
+    name: Folivora
+    description: ""
+    scope: null
+    _type: workspace
+  - _id: req_b1886e6dfcf941c38cd96be6e612ad9b
+    parentId: fld_39786b6fa66b452c9a92cda4ef7cc451
+    modified: 1609385764212
+    created: 1608000999233
+    url: http://127.0.0.1:8080/graphql
+    name: customAddUser
+    description: >-
+      This is a custom mutation to add a `User` type to the database.
+
+
+      An `"isApp"` custom claim is required in the token in order to execute this mutation.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation CustomAddUser($orgID: String!, $email: String!,
+        $password: String!, $firstName: String!, $lastName: String!)
+        {\n  customAddUser(orgID: $orgID, email: $email, password: $password,
+        firstName: $firstName, lastName: $lastName)
+        {\n    id\n    auth0ID\n  }\n}\n","variables":{"orgID":"0x3dfa2","email":"john.forstmeier+15@gmail.com","password":"veryStrongPassword123!","firstName":"john","lastName":"frosty"},"operationName":"CustomAddUser"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f2b67d654cbf4d73aed250712edfe1fc
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBcHAiOiJ0cnVlIiwiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSJ9LCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJscXZuZnoxOUIzUTJ4MDlhcHk3UlM1RkZsT2ZHYXRlRUBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9mb2xpdm9yYS51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTYwOTM4NTYyNiwiZXhwIjoxNjA5NDcyMDI2LCJhenAiOiJscXZuZnoxOUIzUTJ4MDlhcHk3UlM1RkZsT2ZHYXRlRSIsInNjb3BlIjoicmVhZDpjbGllbnRfZ3JhbnRzIGNyZWF0ZTpjbGllbnRfZ3JhbnRzIGRlbGV0ZTpjbGllbnRfZ3JhbnRzIHVwZGF0ZTpjbGllbnRfZ3JhbnRzIHJlYWQ6dXNlcnMgdXBkYXRlOnVzZXJzIGRlbGV0ZTp1c2VycyBjcmVhdGU6dXNlcnMgcmVhZDp1c2Vyc19hcHBfbWV0YWRhdGEgdXBkYXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBkZWxldGU6dXNlcnNfYXBwX21ldGFkYXRhIGNyZWF0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgcmVhZDp1c2VyX2N1c3RvbV9ibG9ja3MgY3JlYXRlOnVzZXJfY3VzdG9tX2Jsb2NrcyBkZWxldGU6dXNlcl9jdXN0b21fYmxvY2tzIGNyZWF0ZTp1c2VyX3RpY2tldHMgcmVhZDpjbGllbnRzIHVwZGF0ZTpjbGllbnRzIGRlbGV0ZTpjbGllbnRzIGNyZWF0ZTpjbGllbnRzIHJlYWQ6Y2xpZW50X2tleXMgdXBkYXRlOmNsaWVudF9rZXlzIGRlbGV0ZTpjbGllbnRfa2V5cyBjcmVhdGU6Y2xpZW50X2tleXMgcmVhZDpjb25uZWN0aW9ucyB1cGRhdGU6Y29ubmVjdGlvbnMgZGVsZXRlOmNvbm5lY3Rpb25zIGNyZWF0ZTpjb25uZWN0aW9ucyByZWFkOnJlc291cmNlX3NlcnZlcnMgdXBkYXRlOnJlc291cmNlX3NlcnZlcnMgZGVsZXRlOnJlc291cmNlX3NlcnZlcnMgY3JlYXRlOnJlc291cmNlX3NlcnZlcnMgcmVhZDpkZXZpY2VfY3JlZGVudGlhbHMgdXBkYXRlOmRldmljZV9jcmVkZW50aWFscyBkZWxldGU6ZGV2aWNlX2NyZWRlbnRpYWxzIGNyZWF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgcmVhZDpydWxlcyB1cGRhdGU6cnVsZXMgZGVsZXRlOnJ1bGVzIGNyZWF0ZTpydWxlcyByZWFkOnJ1bGVzX2NvbmZpZ3MgdXBkYXRlOnJ1bGVzX2NvbmZpZ3MgZGVsZXRlOnJ1bGVzX2NvbmZpZ3MgcmVhZDpob29rcyB1cGRhdGU6aG9va3MgZGVsZXRlOmhvb2tzIGNyZWF0ZTpob29rcyByZWFkOmFjdGlvbnMgdXBkYXRlOmFjdGlvbnMgZGVsZXRlOmFjdGlvbnMgY3JlYXRlOmFjdGlvbnMgcmVhZDplbWFpbF9wcm92aWRlciB1cGRhdGU6ZW1haWxfcHJvdmlkZXIgZGVsZXRlOmVtYWlsX3Byb3ZpZGVyIGNyZWF0ZTplbWFpbF9wcm92aWRlciBibGFja2xpc3Q6dG9rZW5zIHJlYWQ6c3RhdHMgcmVhZDp0ZW5hbnRfc2V0dGluZ3MgdXBkYXRlOnRlbmFudF9zZXR0aW5ncyByZWFkOmxvZ3MgcmVhZDpzaGllbGRzIGNyZWF0ZTpzaGllbGRzIHVwZGF0ZTpzaGllbGRzIGRlbGV0ZTpzaGllbGRzIHJlYWQ6YW5vbWFseV9ibG9ja3MgZGVsZXRlOmFub21hbHlfYmxvY2tzIHVwZGF0ZTp0cmlnZ2VycyByZWFkOnRyaWdnZXJzIHJlYWQ6Z3JhbnRzIGRlbGV0ZTpncmFudHMgcmVhZDpndWFyZGlhbl9mYWN0b3JzIHVwZGF0ZTpndWFyZGlhbl9mYWN0b3JzIHJlYWQ6Z3VhcmRpYW5fZW5yb2xsbWVudHMgZGVsZXRlOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGNyZWF0ZTpndWFyZGlhbl9lbnJvbGxtZW50X3RpY2tldHMgcmVhZDp1c2VyX2lkcF90b2tlbnMgY3JlYXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgZGVsZXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgcmVhZDpjdXN0b21fZG9tYWlucyBkZWxldGU6Y3VzdG9tX2RvbWFpbnMgY3JlYXRlOmN1c3RvbV9kb21haW5zIHVwZGF0ZTpjdXN0b21fZG9tYWlucyByZWFkOmVtYWlsX3RlbXBsYXRlcyBjcmVhdGU6ZW1haWxfdGVtcGxhdGVzIHVwZGF0ZTplbWFpbF90ZW1wbGF0ZXMgcmVhZDptZmFfcG9saWNpZXMgdXBkYXRlOm1mYV9wb2xpY2llcyByZWFkOnJvbGVzIGNyZWF0ZTpyb2xlcyBkZWxldGU6cm9sZXMgdXBkYXRlOnJvbGVzIHJlYWQ6cHJvbXB0cyB1cGRhdGU6cHJvbXB0cyByZWFkOmJyYW5kaW5nIHVwZGF0ZTpicmFuZGluZyBkZWxldGU6YnJhbmRpbmcgcmVhZDpsb2dfc3RyZWFtcyBjcmVhdGU6bG9nX3N0cmVhbXMgZGVsZXRlOmxvZ19zdHJlYW1zIHVwZGF0ZTpsb2dfc3RyZWFtcyBjcmVhdGU6c2lnbmluZ19rZXlzIHJlYWQ6c2lnbmluZ19rZXlzIHVwZGF0ZTpzaWduaW5nX2tleXMgcmVhZDpsaW1pdHMgdXBkYXRlOmxpbWl0cyBleHRyYSIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.Xlm9C_IGWdrrMk5IQv5s0Cp8tm2WMovXXpaGLAmAFdNwQKOwkZ2p2QDfzZxXe5hgJycblfW5ng3DpQhd9_cF8whAG8pkwzr3zkamWytOJqeWqpPYm6F7-Xp-dDIzDoEz63mZVdOfN63lyFKGFSfTstIr9J4TwR0Eld_pvBB6jPa_1lNSBbWmTc1zT9mpYUgxRuZVHYQcgztKQTfYvkrW_BYuFpV3Nz67EJQrCsVREHPLMktsKgSqvO3Gd5-e_uwGaa9p5lfuqKduqiowthHhm56t_wyVrbBy-J57zedb38G69royOeQESlK-J0Fp2yhKk2VcZ_3ZSQAIs-w4szrxeQ
+        description: ""
+        id: pair_615b29ef72e3455d88eac6042cbad06a
+      - name: folivora-custom-secret
+        value: a1b9a47d-783a-4dd0-8eb4-64b0f6766d97
+        description: ""
+        id: pair_197c79d1951648aeace1a453b580e68f
+    authentication: {}
+    metaSortKey: -1607223147514.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fc6c3a62018547acbec7747321960306
+    parentId: fld_39786b6fa66b452c9a92cda4ef7cc451
+    modified: 1609368518976
+    created: 1608686635632
+    url: http://127.0.0.1:8080/graphql
+    name: customUpdateUser
+    description: >-
+      This is a custom mutation to update a `User` type in the database.
+
+
+      An `"isApp"` custom claim is required in the token in order to execute this mutation.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation CustomUpdateUser($authZeroID: String!, $password:
+        String!) {\n  customUpdateUser(authZeroID: $authZeroID, password:
+        $password)
+        {\n    id\n  }\n}\n","variables":{"authZeroID":"auth0|5fed03c245226800755a7e31","password":"exceptionallyFAST1!"},"operationName":"CustomUpdateUser"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f2b67d654cbf4d73aed250712edfe1fc
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHgyNzEzIiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzBUMjI6NDg6MDkuMTE1WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTM2ODQ4OSwiZXhwIjoxNjA5NDA0NDg5fQ.Oq3xlrZOyZQSAReOGjw-ORNRtrkOpKmPgEZ9zRjfCZo9nKuqVpUX1psjV4cI0bjLhJLn_Oxscln_rAMCren0Hg9NojI1UxdzfGmuXxxi2Z08PnGUCQov7NOFnxjvLhlq4eWrVVEZy3wXml7ITGAnFOwprehdzT9fVrI61hMlXJxfjyTf1qK_zKdSM9C2kGDUkC7BmtH7A1Oap-YZoVGcbPwIvbVv8EVKpm6-ZVdPSpbI0dnR9fI1UZ5Q-FJTg_D0EhXf3bjXF9DtQUAkVWd4Z1-DF2dhExq0M0IPRG8W6ATo8XU3oRWfrEZW5inMW3xKmivZvbkv6EEloDqk__ZyPw
+        description: ""
+        id: pair_615b29ef72e3455d88eac6042cbad06a
+      - name: folivora-custom-secret
+        value: a1b9a47d-783a-4dd0-8eb4-64b0f6766d97
+        description: ""
+        id: pair_197c79d1951648aeace1a453b580e68f
+    authentication: {}
+    metaSortKey: -1606441160725.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_62411dbc333a451b9ba69a26415c134c
+    parentId: fld_39786b6fa66b452c9a92cda4ef7cc451
+    modified: 1609368523217
+    created: 1608689521221
+    url: http://127.0.0.1:8080/graphql
+    name: customDeleteUser
+    description: >-
+      This is a custom mutation to delete a `User` type from the database.
+
+
+      An `"isApp"` custom claim is required in the token in order to execute this mutation.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation CustomUpdateUser($authZeroID: String!)
+        {\n  customDeleteUser(authZeroID: $authZeroID)
+        {\n    id\n  }\n}\n","variables":{"authZeroID":"auth0|5fed03c245226800755a7e31"},"operationName":"CustomUpdateUser"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f2b67d654cbf4d73aed250712edfe1fc
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHgyNzEzIiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzBUMjI6NDg6MDkuMTE1WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTM2ODQ4OSwiZXhwIjoxNjA5NDA0NDg5fQ.Oq3xlrZOyZQSAReOGjw-ORNRtrkOpKmPgEZ9zRjfCZo9nKuqVpUX1psjV4cI0bjLhJLn_Oxscln_rAMCren0Hg9NojI1UxdzfGmuXxxi2Z08PnGUCQov7NOFnxjvLhlq4eWrVVEZy3wXml7ITGAnFOwprehdzT9fVrI61hMlXJxfjyTf1qK_zKdSM9C2kGDUkC7BmtH7A1Oap-YZoVGcbPwIvbVv8EVKpm6-ZVdPSpbI0dnR9fI1UZ5Q-FJTg_D0EhXf3bjXF9DtQUAkVWd4Z1-DF2dhExq0M0IPRG8W6ATo8XU3oRWfrEZW5inMW3xKmivZvbkv6EEloDqk__ZyPw
+        description: ""
+        id: pair_615b29ef72e3455d88eac6042cbad06a
+      - name: folivora-custom-secret
+        value: a1b9a47d-783a-4dd0-8eb4-64b0f6766d97
+        description: ""
+        id: pair_197c79d1951648aeace1a453b580e68f
+    authentication: {}
+    metaSortKey: -1606050167330.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_26cf8e35dc4b449f8e17debfe775d136
+    parentId: fld_40cf65b730b849c584f5e4759c22f0dd
+    modified: 1601780421138
+    created: 1601780421138
+    url: http://localhost:8080/admin
+    name: getHealth
+    description: This is used to do a simple query against the `/admin` endpoint to
+      check the current status of the target Dgraph instance.
+    method: POST
+    body:
+      mimeType: ""
+      text: |-
+        {
+        	"query": "query { health { instance address status uptime } }"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1601780421138
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_40cf65b730b849c584f5e4759c22f0dd
+    parentId: fld_84f3fc2d42e3416db6a3dbc47b361bd0
+    modified: 1601780421140
+    created: 1601780421140
+    name: admin
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421140
+    _type: request_group
+  - _id: req_cb5aabbdca3e47b3b8ba2b2b5c18c8e4
+    parentId: fld_40cf65b730b849c584f5e4759c22f0dd
+    modified: 1601780421137
+    created: 1601780421137
+    url: http://localhost:8080/admin
+    name: getSchema
+    description: >
+      Fetch the string representation of the generated schema out of an instance
+      of Dgraph. This is typically stored in the `schema.json` file in the
+      `backend` package for reference.
+    method: POST
+    body:
+      mimeType: ""
+      text: |-
+        {
+        	"query":"{ getGQLSchema { generatedSchema } }"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1601780421137
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f6b0ac94885c46cc9578a3ac9fa74d27
+    parentId: fld_efb700c86c974e22b2f4f4a284e01212
+    modified: 1609433373009
+    created: 1601780421134
+    url: http://127.0.0.1:8080/graphql
+    name: addBloodSpecimen
+    description: >-
+      This is typically going to be used to add one-off `BloodSpecimen` values
+      to the database. Note that several of these fields require that existing
+      values be prepopulated in the database and their IDs provided in this
+      request input.
+
+
+      - `org`
+
+      - `donor`
+
+      - `consent`
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation AddBloodSpecimen($input: [AddBloodSpecimenInput!]!)
+        {\n  addBloodSpecimen(input: $input) {\n    bloodSpecimen
+        {\n      id\n    }\n  }\n}\n","variables":{"input":[{"org":{"id":"0x4"},"externalID":"externalID","description":"this
+        is a
+        description","timestamp":"2020-10-26T00:38:47+00:00","type":"BLOOD","container":"VIAL","status":"IN_INVENTORY","donor":{"id":"0x5"},"consent":{"id":"0x6"},"bloodType":"A_POS","volume":1}]},"operationName":"AddBloodSpecimen"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ac9db65b02da4265851508af06a5a1a2
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg0IiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzFUMTM6NTE6NTkuNzU3WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTQyMjcxOSwiZXhwIjoxNjA5NDU4NzE5fQ.SU-wtwxq_OYNF3afCHyh8EHFEKeGxYrFGolcTz10PmoSOkxFv4YnyaohYnd8oKiDMP-RUb8iRx04ENmZQNGjVPyE43i8NsBBLyOEts7PfUAMiz7pjXghaSNAQPYH4L9y09VrY1rSYhPRPeYJWoYlmV4Ht-llwt8z5Ux3i6VR3Jz-Nxva6QPffoUZh2uXwEqR-7q40KzLfqAAijD3cx3lpblqMzlyHTF13ocihLAmtFmuak2IFST2JGSBa0iMf3-lX-fhZ7zEdEuLZNUxG4eawAtr3JnvTvsViY4Q5QsaGYAJsRez_V0NT2hOu4hZprR6Uq6ZPneFmXnJiiTg5K_hUQ
+        id: pair_84611b0cb72d4f4fb586a80e3a232d69
+    authentication: {}
+    metaSortKey: -1601780421185
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_efb700c86c974e22b2f4f4a284e01212
+    parentId: fld_84f3fc2d42e3416db6a3dbc47b361bd0
+    modified: 1601780421136
+    created: 1601780421136
+    name: specimen
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421136
+    _type: request_group
+  - _id: req_ab4e16b1a12e4b4699188b1e2afece93
+    parentId: fld_efb700c86c974e22b2f4f4a284e01212
+    modified: 1609433374930
+    created: 1601780421133
+    url: http://127.0.0.1:8080/graphql
+    name: queryBloodSpecimen
+    description: This request can be used to query `BloodSpecimen` values from the
+      database as needed.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query QueryBloodSpecimen($filter: BloodSpecimenFilter)
+        {\n  queryBloodSpecimen(filter: $filter)
+        {\n    id\n  }\n}\n","variables":{"filter":{}},"operationName":"QueryBloodSpecimen"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_9054b1fb641342a9b8e30a993dd9ce54
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg0IiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzFUMTQ6MDc6MjguODU1WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTQyMzY0OCwiZXhwIjoxNjA5NDU5NjQ4fQ.UykIGO2ytiqE6VCYr3ZXBVrEvHIBq5j-SaprkiQiuPSKAdcVDSXEHDUdcFP0cg_1ZQm8tuEt0yzQfVllJmZc7V2BrjjvkdRa1L2mjkuWrEm_0UN3_3S1w_wgUjGDuquU0tdp15-0kQDv32RY1uyDheaOeWYcKV_LJ-NXj9kBwynR3aU73x1ttYSbFQlWFySOA-ffixElsfqVToY2-zRxWGKRN6BUmiyiqdQ46JfwGBuJOvfcIM_XyAsyE_C-_Y1SVpJQlSHii8rGNvjxmysItH8eTlJTs5QAStM5ElYCgB93bkNxsXbQ4rcMHhW6koxITdWnS9QltOIaghLs4c4HWg
+        id: pair_fa7e5585332445a2beed9b089c44fdc2
+    authentication: {}
+    metaSortKey: -1601780421133
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_613150d8f933432a8bad719bd2d7f542
+    parentId: fld_efb700c86c974e22b2f4f4a284e01212
+    modified: 1609433377787
+    created: 1601780421132
+    url: http://127.0.0.1:8080/graphql
+    name: updateBloodSpecimen
+    description: This is typically going to be used to add one-off `BloodSpecimen`
+      values to the database.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation UpdateBloodSpecimen($input: UpdateBloodSpecimenInput!)
+        {\n  updateBloodSpecimen(input: $input) {\n    bloodSpecimen
+        {\n      id\n      description\n    }\n  }\n}\n","variables":{"input":{"filter":{"id":["0x5531"]},"set":{"description":"THIS
+        IS AN UPDATE"}}},"operationName":"UpdateBloodSpecimen"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_d588dc04b724483ba5a08d5a31a2e044
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg1NTJhIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMC0yOFQwMToyNjoyNS41NzdaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjAzODQ4Mzg1LCJleHAiOjE2MDM4ODQzODV9.dlCOrO8QEUL9Uu1zDEob8bYTo2LDHbDn4PFV32_TZO-t5DI3mzgLUyobqsp8ateGH8ymS59y2mbVZj10Cgx9KOY24XM07AFy3JVy8P1KIOP_Aj8HiPr9Xoov7cwrioS5A6kr9wVMSiSXb1BkTEtNKBGPfmBLcpbJh_9lQz6EDMOkB7uLEcaaHl-NFWkR3JVRixKToMqDxGOu78ZPCGEPXCUgiEGed1OPWnh1G98UwUpDWiNoMJuJr_TqJfPFg4cPsXSE3-VSUOlmjd1tzhhcIAEx9Nb2DZelTM2-aR6pSJ5YnvZlazEyTSP0cbA1DIpyJ4lPe8j1dVlMZI1bt8UP-g
+        id: pair_527c5a5400974afe9b9d512c7c102c7b
+    authentication: {}
+    metaSortKey: -1601780421132
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0d1fe328a98e4d5e8b58b8e9a9c2100f
+    parentId: fld_efb700c86c974e22b2f4f4a284e01212
+    modified: 1609433376601
+    created: 1601780421131
+    url: http://127.0.0.1:8080/graphql
+    name: deleteBloodSpecimen
+    description: This request can be used to purge one or more `BloodSpecimen`
+      values from the database as needed.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation DeleteBloodSpecimen($filter: BloodSpecimenFilter!)
+        {\n  deleteBloodSpecimen(filter: $filter) {\n    bloodSpecimen
+        {\n      id\n    }\n  }\n}\n","variables":{"filter":{"id":["0x5531"]}},"operationName":"DeleteBloodSpecimen"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a1bca09e28fd4bbc8a4a7cbb95e38609
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg1NTJhIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMC0yOFQwMToyNjoyNS41NzdaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjAzODQ4Mzg1LCJleHAiOjE2MDM4ODQzODV9.dlCOrO8QEUL9Uu1zDEob8bYTo2LDHbDn4PFV32_TZO-t5DI3mzgLUyobqsp8ateGH8ymS59y2mbVZj10Cgx9KOY24XM07AFy3JVy8P1KIOP_Aj8HiPr9Xoov7cwrioS5A6kr9wVMSiSXb1BkTEtNKBGPfmBLcpbJh_9lQz6EDMOkB7uLEcaaHl-NFWkR3JVRixKToMqDxGOu78ZPCGEPXCUgiEGed1OPWnh1G98UwUpDWiNoMJuJr_TqJfPFg4cPsXSE3-VSUOlmjd1tzhhcIAEx9Nb2DZelTM2-aR6pSJ5YnvZlazEyTSP0cbA1DIpyJ4lPe8j1dVlMZI1bt8UP-g
+        id: pair_e104d029ae1d4415b92beedbb83a65f9
+    authentication: {}
+    metaSortKey: -1601780421131
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6be2a2b2b55f40c1a2c7b1f424506392
+    parentId: fld_efb700c86c974e22b2f4f4a284e01212
+    modified: 1609433379795
+    created: 1601780421135
+    url: http://127.0.0.1:8080/graphql
+    name: querySpecimen
+    description: >-
+      This request can be used to query `Specimen` interface values from the
+      database as needed.
+
+
+      **NOTE**: this query is currently broken due to a bug in the Dgraph implementation - their team is aware and has it on their roadmap to address it.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query QuerySpecimen($specimen: SpecimenFilter)
+        {\n  querySpecimen(filter: $specimen)
+        {\n    id\n    externalID\n  }\n}\n","variables":{"specimen":{}},"operationName":"QuerySpecimen"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5ab730ea87a641a3b974d9ab7d08c008
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg0IiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzFUMTM6NTE6NTkuNzU3WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTQyMjcxOSwiZXhwIjoxNjA5NDU4NzE5fQ.SU-wtwxq_OYNF3afCHyh8EHFEKeGxYrFGolcTz10PmoSOkxFv4YnyaohYnd8oKiDMP-RUb8iRx04ENmZQNGjVPyE43i8NsBBLyOEts7PfUAMiz7pjXghaSNAQPYH4L9y09VrY1rSYhPRPeYJWoYlmV4Ht-llwt8z5Ux3i6VR3Jz-Nxva6QPffoUZh2uXwEqR-7q40KzLfqAAijD3cx3lpblqMzlyHTF13ocihLAmtFmuak2IFST2JGSBa0iMf3-lX-fhZ7zEdEuLZNUxG4eawAtr3JnvTvsViY4Q5QsaGYAJsRez_V0NT2hOu4hZprR6Uq6ZPneFmXnJiiTg5K_hUQ
+        id: pair_9c33af130e4c4b33bffffe51265692c8
+    authentication: {}
+    metaSortKey: -1601780421081
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_46f8cb3550d24982822eb2e6493a1939
+    parentId: fld_d6af752760a24fa39f11edb45105fcd9
+    modified: 1609433384087
+    created: 1601780421129
+    url: http://127.0.0.1:8080/graphql
+    name: addUser
+    description: >-
+      Create new instance of the `User` object in the database. Note that this
+      requires that certain objects exist in the database ahead of time:
+
+
+      - `org`
+      	- this would be the actual org the user has access to
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation AddUser($input: [AddUserInput!]!) {\n  addUser(input:
+        $input) {\n    user
+        {\n      email\n    }\n  }\n}\n","variables":{"input":[{"org":{"id":"0x4"},"email":"john.forstmeier+01@gmail.com","firstName":"john","lastName":"forstmeier","auth0ID":"auth0|id"}]},"operationName":"AddUser"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f09a2e5258ec454d9b7df166f2dadc9d
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBcHAiOiJ0cnVlIiwiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSJ9LCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJscXZuZnoxOUIzUTJ4MDlhcHk3UlM1RkZsT2ZHYXRlRUBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9mb2xpdm9yYS51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTYwOTQyNTMwMSwiZXhwIjoxNjA5NTExNzAxLCJhenAiOiJscXZuZnoxOUIzUTJ4MDlhcHk3UlM1RkZsT2ZHYXRlRSIsInNjb3BlIjoicmVhZDpjbGllbnRfZ3JhbnRzIGNyZWF0ZTpjbGllbnRfZ3JhbnRzIGRlbGV0ZTpjbGllbnRfZ3JhbnRzIHVwZGF0ZTpjbGllbnRfZ3JhbnRzIHJlYWQ6dXNlcnMgdXBkYXRlOnVzZXJzIGRlbGV0ZTp1c2VycyBjcmVhdGU6dXNlcnMgcmVhZDp1c2Vyc19hcHBfbWV0YWRhdGEgdXBkYXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBkZWxldGU6dXNlcnNfYXBwX21ldGFkYXRhIGNyZWF0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgcmVhZDp1c2VyX2N1c3RvbV9ibG9ja3MgY3JlYXRlOnVzZXJfY3VzdG9tX2Jsb2NrcyBkZWxldGU6dXNlcl9jdXN0b21fYmxvY2tzIGNyZWF0ZTp1c2VyX3RpY2tldHMgcmVhZDpjbGllbnRzIHVwZGF0ZTpjbGllbnRzIGRlbGV0ZTpjbGllbnRzIGNyZWF0ZTpjbGllbnRzIHJlYWQ6Y2xpZW50X2tleXMgdXBkYXRlOmNsaWVudF9rZXlzIGRlbGV0ZTpjbGllbnRfa2V5cyBjcmVhdGU6Y2xpZW50X2tleXMgcmVhZDpjb25uZWN0aW9ucyB1cGRhdGU6Y29ubmVjdGlvbnMgZGVsZXRlOmNvbm5lY3Rpb25zIGNyZWF0ZTpjb25uZWN0aW9ucyByZWFkOnJlc291cmNlX3NlcnZlcnMgdXBkYXRlOnJlc291cmNlX3NlcnZlcnMgZGVsZXRlOnJlc291cmNlX3NlcnZlcnMgY3JlYXRlOnJlc291cmNlX3NlcnZlcnMgcmVhZDpkZXZpY2VfY3JlZGVudGlhbHMgdXBkYXRlOmRldmljZV9jcmVkZW50aWFscyBkZWxldGU6ZGV2aWNlX2NyZWRlbnRpYWxzIGNyZWF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgcmVhZDpydWxlcyB1cGRhdGU6cnVsZXMgZGVsZXRlOnJ1bGVzIGNyZWF0ZTpydWxlcyByZWFkOnJ1bGVzX2NvbmZpZ3MgdXBkYXRlOnJ1bGVzX2NvbmZpZ3MgZGVsZXRlOnJ1bGVzX2NvbmZpZ3MgcmVhZDpob29rcyB1cGRhdGU6aG9va3MgZGVsZXRlOmhvb2tzIGNyZWF0ZTpob29rcyByZWFkOmFjdGlvbnMgdXBkYXRlOmFjdGlvbnMgZGVsZXRlOmFjdGlvbnMgY3JlYXRlOmFjdGlvbnMgcmVhZDplbWFpbF9wcm92aWRlciB1cGRhdGU6ZW1haWxfcHJvdmlkZXIgZGVsZXRlOmVtYWlsX3Byb3ZpZGVyIGNyZWF0ZTplbWFpbF9wcm92aWRlciBibGFja2xpc3Q6dG9rZW5zIHJlYWQ6c3RhdHMgcmVhZDp0ZW5hbnRfc2V0dGluZ3MgdXBkYXRlOnRlbmFudF9zZXR0aW5ncyByZWFkOmxvZ3MgcmVhZDpzaGllbGRzIGNyZWF0ZTpzaGllbGRzIHVwZGF0ZTpzaGllbGRzIGRlbGV0ZTpzaGllbGRzIHJlYWQ6YW5vbWFseV9ibG9ja3MgZGVsZXRlOmFub21hbHlfYmxvY2tzIHVwZGF0ZTp0cmlnZ2VycyByZWFkOnRyaWdnZXJzIHJlYWQ6Z3JhbnRzIGRlbGV0ZTpncmFudHMgcmVhZDpndWFyZGlhbl9mYWN0b3JzIHVwZGF0ZTpndWFyZGlhbl9mYWN0b3JzIHJlYWQ6Z3VhcmRpYW5fZW5yb2xsbWVudHMgZGVsZXRlOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGNyZWF0ZTpndWFyZGlhbl9lbnJvbGxtZW50X3RpY2tldHMgcmVhZDp1c2VyX2lkcF90b2tlbnMgY3JlYXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgZGVsZXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgcmVhZDpjdXN0b21fZG9tYWlucyBkZWxldGU6Y3VzdG9tX2RvbWFpbnMgY3JlYXRlOmN1c3RvbV9kb21haW5zIHVwZGF0ZTpjdXN0b21fZG9tYWlucyByZWFkOmVtYWlsX3RlbXBsYXRlcyBjcmVhdGU6ZW1haWxfdGVtcGxhdGVzIHVwZGF0ZTplbWFpbF90ZW1wbGF0ZXMgcmVhZDptZmFfcG9saWNpZXMgdXBkYXRlOm1mYV9wb2xpY2llcyByZWFkOnJvbGVzIGNyZWF0ZTpyb2xlcyBkZWxldGU6cm9sZXMgdXBkYXRlOnJvbGVzIHJlYWQ6cHJvbXB0cyB1cGRhdGU6cHJvbXB0cyByZWFkOmJyYW5kaW5nIHVwZGF0ZTpicmFuZGluZyBkZWxldGU6YnJhbmRpbmcgcmVhZDpsb2dfc3RyZWFtcyBjcmVhdGU6bG9nX3N0cmVhbXMgZGVsZXRlOmxvZ19zdHJlYW1zIHVwZGF0ZTpsb2dfc3RyZWFtcyBjcmVhdGU6c2lnbmluZ19rZXlzIHJlYWQ6c2lnbmluZ19rZXlzIHVwZGF0ZTpzaWduaW5nX2tleXMgcmVhZDpsaW1pdHMgdXBkYXRlOmxpbWl0cyBleHRyYSIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.eR8Fz-TcCmQ1Ula7hCFoDpdaApLtYPAgqUXGJXWAP3vd7HVMSehMU9feudgS0C-hJQs8MUo2sKA3JpzSU67Bj-9PRcpIcV78mV8yegr4DAxfQ2fG6H57Y6atOyjGvbanz-zwyHNQmnT1I-7mBB4UHUGKXQ9oc61_ib38ogR6Tlmap67Df5eo3mYIzMnodZ8yRK8b--LM5b06YxyeHWzeuhTFumfvwjhFhC46at_uQotQwWkk6EZq-MXu8XezbdmM3Sjv0hBIvatUUZXoiYQBSUtBbwntZoDtsI_4u6-jWTsq43DYMQq-N7fIwFca54tUHUHlNbJ1z6AUeXkdRLh9dA
+        id: pair_a05e8e957e7b4ee785d4a71326d2ceed
+    authentication: {}
+    metaSortKey: -1601780421129
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d6af752760a24fa39f11edb45105fcd9
+    parentId: fld_84f3fc2d42e3416db6a3dbc47b361bd0
+    modified: 1601780421130
+    created: 1601780421130
+    name: user
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421130
+    _type: request_group
+  - _id: req_afae12ef48dd43589feaad97b737e4a8
+    parentId: fld_d6af752760a24fa39f11edb45105fcd9
+    modified: 1609433385305
+    created: 1601780421126
+    url: http://127.0.0.1:8080/graphql
+    name: getUser
+    description: Fetch an unfiltered array of `User` objects from the database.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query QueryUser {\n  queryUser(filter: {})
+        {\n    id\n    email\n  }\n}\n","operationName":"QueryUser"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_751ceb56dcc6449994ba573569b4ca21
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg0IiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzFUMTQ6MDc6MjguODU1WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTQyMzY0OCwiZXhwIjoxNjA5NDU5NjQ4fQ.UykIGO2ytiqE6VCYr3ZXBVrEvHIBq5j-SaprkiQiuPSKAdcVDSXEHDUdcFP0cg_1ZQm8tuEt0yzQfVllJmZc7V2BrjjvkdRa1L2mjkuWrEm_0UN3_3S1w_wgUjGDuquU0tdp15-0kQDv32RY1uyDheaOeWYcKV_LJ-NXj9kBwynR3aU73x1ttYSbFQlWFySOA-ffixElsfqVToY2-zRxWGKRN6BUmiyiqdQ46JfwGBuJOvfcIM_XyAsyE_C-_Y1SVpJQlSHii8rGNvjxmysItH8eTlJTs5QAStM5ElYCgB93bkNxsXbQ4rcMHhW6koxITdWnS9QltOIaghLs4c4HWg
+        id: pair_782cdbd415424a17a4522990b205319c
+    authentication: {}
+    metaSortKey: -1601780421126
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_17beb98a2a174751af7eb58f2420818f
+    parentId: fld_d6af752760a24fa39f11edb45105fcd9
+    modified: 1609433386221
+    created: 1601780421125
+    url: http://127.0.0.1:8080/graphql
+    name: updateUser
+    description: >-
+      Edit existing instances of the `User` object in the database. Note that
+      this requires that certain objects exist in the database ahead of time
+      (assuming these fields are the ones being edited):
+
+
+      - `org`
+      	- this would be the actual org the user has access to
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation UpdateUser($input: UpdateUserInput!)
+        {\n  updateUser(input: $input) {\n    user
+        {\n      email\n      lastName\n    }\n  }\n}\n","variables":{"input":{"filter":{"id":["0x552e"]},"set":{"firstName":"john","lastName":"frosty","auth0ID":"auth0_id"}}},"operationName":"UpdateUser"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f4daac65cedb40fb99dbb8fc35458b00
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg1NTJhIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMC0yOFQwMToyNjoyNS41NzdaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjAzODQ4Mzg1LCJleHAiOjE2MDM4ODQzODV9.dlCOrO8QEUL9Uu1zDEob8bYTo2LDHbDn4PFV32_TZO-t5DI3mzgLUyobqsp8ateGH8ymS59y2mbVZj10Cgx9KOY24XM07AFy3JVy8P1KIOP_Aj8HiPr9Xoov7cwrioS5A6kr9wVMSiSXb1BkTEtNKBGPfmBLcpbJh_9lQz6EDMOkB7uLEcaaHl-NFWkR3JVRixKToMqDxGOu78ZPCGEPXCUgiEGed1OPWnh1G98UwUpDWiNoMJuJr_TqJfPFg4cPsXSE3-VSUOlmjd1tzhhcIAEx9Nb2DZelTM2-aR6pSJ5YnvZlazEyTSP0cbA1DIpyJ4lPe8j1dVlMZI1bt8UP-g
+        id: pair_4b3d4efccff94a21bf18a0bf7598193c
+    authentication: {}
+    metaSortKey: -1601780421125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f46463c777cb494598abd3b79ce298df
+    parentId: fld_d6af752760a24fa39f11edb45105fcd9
+    modified: 1609433387753
+    created: 1601780421123
+    url: http://127.0.0.1:8080/graphql
+    name: deleteUser
+    description: This request can be used to purge one or more `User` values from
+      the database as needed.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation DeleteUser($filter: UserFilter!)
+        {\n  deleteUser(filter: $filter) {\n    user
+        {\n      email\n    }\n  }\n}\n","variables":{"filter":{"id":["0x552e"]}},"operationName":"DeleteUser"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_51037e9d66bd45ab9ba89065bd4153b1
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg1NTJhIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMC0yOFQwMToyNjoyNS41NzdaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjAzODQ4Mzg1LCJleHAiOjE2MDM4ODQzODV9.dlCOrO8QEUL9Uu1zDEob8bYTo2LDHbDn4PFV32_TZO-t5DI3mzgLUyobqsp8ateGH8ymS59y2mbVZj10Cgx9KOY24XM07AFy3JVy8P1KIOP_Aj8HiPr9Xoov7cwrioS5A6kr9wVMSiSXb1BkTEtNKBGPfmBLcpbJh_9lQz6EDMOkB7uLEcaaHl-NFWkR3JVRixKToMqDxGOu78ZPCGEPXCUgiEGed1OPWnh1G98UwUpDWiNoMJuJr_TqJfPFg4cPsXSE3-VSUOlmjd1tzhhcIAEx9Nb2DZelTM2-aR6pSJ5YnvZlazEyTSP0cbA1DIpyJ4lPe8j1dVlMZI1bt8UP-g
+        id: pair_6482e676d610480fbb987657aae0b8ba
+    authentication: {}
+    metaSortKey: -1601780421123
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_dcbacb3f8c55437a91affd487e5a9281
+    parentId: fld_22bab8ce6d11401d8b432b082f974f82
+    modified: 1609433393818
+    created: 1601780421116
+    url: http://127.0.0.1:8080/graphql
+    name: addOrg
+    description: Create new instance of the `Org` object in the database.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation AddOrg($input: [AddOrgInput!]!) {\n  addOrg(input:
+        $input) {\n    org
+        {\n      id\n    }\n  }\n}\n","variables":{"input":[{"name":"TEST_ORG"}]},"operationName":"AddOrg"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_9a66f417e836499790719b4ff337d7bf
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBcHAiOiJ0cnVlIiwiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSJ9LCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJscXZuZnoxOUIzUTJ4MDlhcHk3UlM1RkZsT2ZHYXRlRUBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9mb2xpdm9yYS51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTYwOTQyMjE5NSwiZXhwIjoxNjA5NTA4NTk1LCJhenAiOiJscXZuZnoxOUIzUTJ4MDlhcHk3UlM1RkZsT2ZHYXRlRSIsInNjb3BlIjoicmVhZDpjbGllbnRfZ3JhbnRzIGNyZWF0ZTpjbGllbnRfZ3JhbnRzIGRlbGV0ZTpjbGllbnRfZ3JhbnRzIHVwZGF0ZTpjbGllbnRfZ3JhbnRzIHJlYWQ6dXNlcnMgdXBkYXRlOnVzZXJzIGRlbGV0ZTp1c2VycyBjcmVhdGU6dXNlcnMgcmVhZDp1c2Vyc19hcHBfbWV0YWRhdGEgdXBkYXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBkZWxldGU6dXNlcnNfYXBwX21ldGFkYXRhIGNyZWF0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgcmVhZDp1c2VyX2N1c3RvbV9ibG9ja3MgY3JlYXRlOnVzZXJfY3VzdG9tX2Jsb2NrcyBkZWxldGU6dXNlcl9jdXN0b21fYmxvY2tzIGNyZWF0ZTp1c2VyX3RpY2tldHMgcmVhZDpjbGllbnRzIHVwZGF0ZTpjbGllbnRzIGRlbGV0ZTpjbGllbnRzIGNyZWF0ZTpjbGllbnRzIHJlYWQ6Y2xpZW50X2tleXMgdXBkYXRlOmNsaWVudF9rZXlzIGRlbGV0ZTpjbGllbnRfa2V5cyBjcmVhdGU6Y2xpZW50X2tleXMgcmVhZDpjb25uZWN0aW9ucyB1cGRhdGU6Y29ubmVjdGlvbnMgZGVsZXRlOmNvbm5lY3Rpb25zIGNyZWF0ZTpjb25uZWN0aW9ucyByZWFkOnJlc291cmNlX3NlcnZlcnMgdXBkYXRlOnJlc291cmNlX3NlcnZlcnMgZGVsZXRlOnJlc291cmNlX3NlcnZlcnMgY3JlYXRlOnJlc291cmNlX3NlcnZlcnMgcmVhZDpkZXZpY2VfY3JlZGVudGlhbHMgdXBkYXRlOmRldmljZV9jcmVkZW50aWFscyBkZWxldGU6ZGV2aWNlX2NyZWRlbnRpYWxzIGNyZWF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgcmVhZDpydWxlcyB1cGRhdGU6cnVsZXMgZGVsZXRlOnJ1bGVzIGNyZWF0ZTpydWxlcyByZWFkOnJ1bGVzX2NvbmZpZ3MgdXBkYXRlOnJ1bGVzX2NvbmZpZ3MgZGVsZXRlOnJ1bGVzX2NvbmZpZ3MgcmVhZDpob29rcyB1cGRhdGU6aG9va3MgZGVsZXRlOmhvb2tzIGNyZWF0ZTpob29rcyByZWFkOmFjdGlvbnMgdXBkYXRlOmFjdGlvbnMgZGVsZXRlOmFjdGlvbnMgY3JlYXRlOmFjdGlvbnMgcmVhZDplbWFpbF9wcm92aWRlciB1cGRhdGU6ZW1haWxfcHJvdmlkZXIgZGVsZXRlOmVtYWlsX3Byb3ZpZGVyIGNyZWF0ZTplbWFpbF9wcm92aWRlciBibGFja2xpc3Q6dG9rZW5zIHJlYWQ6c3RhdHMgcmVhZDp0ZW5hbnRfc2V0dGluZ3MgdXBkYXRlOnRlbmFudF9zZXR0aW5ncyByZWFkOmxvZ3MgcmVhZDpzaGllbGRzIGNyZWF0ZTpzaGllbGRzIHVwZGF0ZTpzaGllbGRzIGRlbGV0ZTpzaGllbGRzIHJlYWQ6YW5vbWFseV9ibG9ja3MgZGVsZXRlOmFub21hbHlfYmxvY2tzIHVwZGF0ZTp0cmlnZ2VycyByZWFkOnRyaWdnZXJzIHJlYWQ6Z3JhbnRzIGRlbGV0ZTpncmFudHMgcmVhZDpndWFyZGlhbl9mYWN0b3JzIHVwZGF0ZTpndWFyZGlhbl9mYWN0b3JzIHJlYWQ6Z3VhcmRpYW5fZW5yb2xsbWVudHMgZGVsZXRlOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGNyZWF0ZTpndWFyZGlhbl9lbnJvbGxtZW50X3RpY2tldHMgcmVhZDp1c2VyX2lkcF90b2tlbnMgY3JlYXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgZGVsZXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgcmVhZDpjdXN0b21fZG9tYWlucyBkZWxldGU6Y3VzdG9tX2RvbWFpbnMgY3JlYXRlOmN1c3RvbV9kb21haW5zIHVwZGF0ZTpjdXN0b21fZG9tYWlucyByZWFkOmVtYWlsX3RlbXBsYXRlcyBjcmVhdGU6ZW1haWxfdGVtcGxhdGVzIHVwZGF0ZTplbWFpbF90ZW1wbGF0ZXMgcmVhZDptZmFfcG9saWNpZXMgdXBkYXRlOm1mYV9wb2xpY2llcyByZWFkOnJvbGVzIGNyZWF0ZTpyb2xlcyBkZWxldGU6cm9sZXMgdXBkYXRlOnJvbGVzIHJlYWQ6cHJvbXB0cyB1cGRhdGU6cHJvbXB0cyByZWFkOmJyYW5kaW5nIHVwZGF0ZTpicmFuZGluZyBkZWxldGU6YnJhbmRpbmcgcmVhZDpsb2dfc3RyZWFtcyBjcmVhdGU6bG9nX3N0cmVhbXMgZGVsZXRlOmxvZ19zdHJlYW1zIHVwZGF0ZTpsb2dfc3RyZWFtcyBjcmVhdGU6c2lnbmluZ19rZXlzIHJlYWQ6c2lnbmluZ19rZXlzIHVwZGF0ZTpzaWduaW5nX2tleXMgcmVhZDpsaW1pdHMgdXBkYXRlOmxpbWl0cyBleHRyYSIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.FJnZZYfVmaq461-bIugGuVQS6HNVJuJdBh2U-Bh5AgVliMFCduTqSusTOsnrE0aZWsFLGyve-HjQ4VqYDnMBIqpluqkqxq8vKDCA43WwF2K3Pup3GNEmAJgrjCDzQQTyr9pnI3kX_PHKCfOzDLxSySnN3jlRqbIyORSYrMvlgxDP31G164J39fstUmNKb57_QH9FlHqzx8Ja5a5huHrdD8HYT7jYYUiICpksyATXX0QSHCMC6uzXoBHEProamWM4dgorb-Tvv3qfLV2QJknCQevxMW8Bz9vQHVyHPdD-Tbi1DEBRvjhP6RJpp1h9r-pBNhFuSuy0DuvkF8flnMUyhw
+        id: pair_4e3b24b747134ff7a241bef838a9a19c
+    authentication: {}
+    metaSortKey: -1601780421116
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_22bab8ce6d11401d8b432b082f974f82
+    parentId: fld_84f3fc2d42e3416db6a3dbc47b361bd0
+    modified: 1601780421117
+    created: 1601780421117
+    name: org
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421117
+    _type: request_group
+  - _id: req_438e592288574028958c9326bd78770c
+    parentId: fld_22bab8ce6d11401d8b432b082f974f82
+    modified: 1609433409597
+    created: 1601780421115
+    url: http://127.0.0.1:8080/graphql
+    name: queryOrg
+    description: Get `Org` types in an unfiltered list.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query QueryOrg {\n  queryOrg(filter: {})
+        {\n    id\n    name\n  }\n}\n","operationName":"QueryOrg"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_9cec7df837564eaea420b9ea70671667
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg0IiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzFUMTM6NTE6NTkuNzU3WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTQyMjcxOSwiZXhwIjoxNjA5NDU4NzE5fQ.SU-wtwxq_OYNF3afCHyh8EHFEKeGxYrFGolcTz10PmoSOkxFv4YnyaohYnd8oKiDMP-RUb8iRx04ENmZQNGjVPyE43i8NsBBLyOEts7PfUAMiz7pjXghaSNAQPYH4L9y09VrY1rSYhPRPeYJWoYlmV4Ht-llwt8z5Ux3i6VR3Jz-Nxva6QPffoUZh2uXwEqR-7q40KzLfqAAijD3cx3lpblqMzlyHTF13ocihLAmtFmuak2IFST2JGSBa0iMf3-lX-fhZ7zEdEuLZNUxG4eawAtr3JnvTvsViY4Q5QsaGYAJsRez_V0NT2hOu4hZprR6Uq6ZPneFmXnJiiTg5K_hUQ
+        id: pair_c4e1114465104e159af9bac37a1038e5
+    authentication: {}
+    metaSortKey: -1601780421115
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_10ab668eaf0a46d2a55cbe37b7198b63
+    parentId: fld_22bab8ce6d11401d8b432b082f974f82
+    modified: 1609433410615
+    created: 1601780421112
+    url: http://127.0.0.1:8080/graphql
+    name: deleteOrg
+    description: Remove `Org` type from database by ID string.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation DeleteOrg {\n  deleteOrg(filter: {id: [\"0x4e27\"]})
+        {\n    org {\n      id\n    }\n  }\n}\n","operationName":"DeleteOrg"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_d08719f46e4148399b421a740fb917bc
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiZXhhbXBsZUlEIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMC0yN1QyMjo0ODo1Ni4xMzhaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjAzODM4OTM2LCJleHAiOjE2MDM4NzQ5MzZ9.LfderFOP5The5VOSzt6QMU2IvdCRu6z9Alg8l1XFM92KU8Jz6JeZW4w1hVZcqb7KshewSC3A8Ye0MaX99q5viSH728w8tt7G751lh_bKGt682U3yFQzb_CO1nNZQAsDvwI5iLJjgpXG-hBfGw_RqlhcbtBhxrJSxIhxe7J5sjMdGTLIqRIudzFvzyxCKoy1FrquE-OEIvNr7HaWotflaU8FCmpPvheuiPK7MwnBSBXAPGS0xJkgDvUzVSwy4T_R9uQoB0l6SppKvUuvWdJQWbr-AmW7mVdZ8jTU3uIZk9yj7dKc3GW-E1erOX-_1tfNyT1_zUGqvFB3dPzKfTo5mUA
+        id: pair_1fa5ebd8e85f4a72b540f1c014674796
+    authentication: {}
+    metaSortKey: -1601780421112
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_eebbae24f0954bd881a92849df8805de
+    parentId: fld_12d4685713bf4d08abeee2dad565de1a
+    modified: 1609433421998
+    created: 1605659518114
+    url: http://127.0.0.1:8080/graphql
+    name: queryDonor
+    description: Get `Donor` types in an unfiltered list.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query QueryDonor {\n  queryDonor(filter: {})
+        {\n    id\n  }\n}\n","operationName":"QueryDonor"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_91d3adba405542e890f7e5b0e49981fc
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg5YzQzIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMS0xOFQwMDozMDozOC4xOTlaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjA1NjU5NDM4LCJleHAiOjE2MDU2OTU0Mzh9.GAoOu_Rrbmf6RAKWwqUqLbvqY8okvd1uS6iRPcsJDkUuCqXW63QMiqN-8-mrFsmCq4GsL5TEX0r_cbZfnXB0Bnm0QMg_85QRrYMPBJe_MXqqLY551Eh95RAvFag5xksllD2nlh3Z-3_thr5cXShcaTeRmSC2HRXZ7Ck_DrlXUysGgmDQJJUMboBfmgBmYwnATvLFkIWakUKN-TFBvu3Zlg2ngQP3df4siBgSTgOHnJRkh1t87o3Aj2rgKkRwF3x12jAlDR11mf15QA3y-farWWGoKUpcLWyDtY160eqElHZ8tE8UBFTw0A2IB8xOE7OVaqO4WUM-zWxGl0HigtLn9g
+        description: ""
+        id: pair_53b0c73cff35431991a6e0aba8e7cc6d
+    authentication: {}
+    metaSortKey: -1601780421157
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_12d4685713bf4d08abeee2dad565de1a
+    parentId: fld_84f3fc2d42e3416db6a3dbc47b361bd0
+    modified: 1601780421109
+    created: 1601780421109
+    name: donor
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421109
+    _type: request_group
+  - _id: req_2aa03c2d42a6496796259e595d223278
+    parentId: fld_12d4685713bf4d08abeee2dad565de1a
+    modified: 1609433427605
+    created: 1601780421107
+    url: http://127.0.0.1:8080/graphql
+    name: addDonors
+    description: This request adds a `Donor` type object to the database.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation AddDonor($input: [AddDonorInput!]!)
+        {\n  addDonor(input: $input) {\n    donor
+        {\n      id\n    }\n  }\n}\n","variables":{"input":[{"org":{"id":"0x4"},"dob":"2020-10-26T00:38:47+00:00","sex":"MALE","race":"WHITE"}]},"operationName":"AddDonor"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_669d36a2293a46c9ba07c18d91e71bca
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg0IiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzFUMTM6NTE6NTkuNzU3WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTQyMjcxOSwiZXhwIjoxNjA5NDU4NzE5fQ.SU-wtwxq_OYNF3afCHyh8EHFEKeGxYrFGolcTz10PmoSOkxFv4YnyaohYnd8oKiDMP-RUb8iRx04ENmZQNGjVPyE43i8NsBBLyOEts7PfUAMiz7pjXghaSNAQPYH4L9y09VrY1rSYhPRPeYJWoYlmV4Ht-llwt8z5Ux3i6VR3Jz-Nxva6QPffoUZh2uXwEqR-7q40KzLfqAAijD3cx3lpblqMzlyHTF13ocihLAmtFmuak2IFST2JGSBa0iMf3-lX-fhZ7zEdEuLZNUxG4eawAtr3JnvTvsViY4Q5QsaGYAJsRez_V0NT2hOu4hZprR6Uq6ZPneFmXnJiiTg5K_hUQ
+        id: pair_30a171d3dc3246689b87922a24c6d29a
+    authentication: {}
+    metaSortKey: -1601780421107
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_088172d743714cbea6073352479f1549
+    parentId: fld_b162e5b19d9049f88abe10c0b15860a7
+    modified: 1609433436501
+    created: 1605659173936
+    url: http://127.0.0.1:8080/graphql
+    name: queryConsent
+    description: Get `Consent` types in an unfiltered list.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query QueryConsent {\n  queryConsent(filter: {})
+        {\n    id\n  }\n}\n","operationName":"QueryConsent"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_91d3adba405542e890f7e5b0e49981fc
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg5YzQzIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMS0xOFQwMDozMDozOC4xOTlaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjA1NjU5NDM4LCJleHAiOjE2MDU2OTU0Mzh9.GAoOu_Rrbmf6RAKWwqUqLbvqY8okvd1uS6iRPcsJDkUuCqXW63QMiqN-8-mrFsmCq4GsL5TEX0r_cbZfnXB0Bnm0QMg_85QRrYMPBJe_MXqqLY551Eh95RAvFag5xksllD2nlh3Z-3_thr5cXShcaTeRmSC2HRXZ7Ck_DrlXUysGgmDQJJUMboBfmgBmYwnATvLFkIWakUKN-TFBvu3Zlg2ngQP3df4siBgSTgOHnJRkh1t87o3Aj2rgKkRwF3x12jAlDR11mf15QA3y-farWWGoKUpcLWyDtY160eqElHZ8tE8UBFTw0A2IB8xOE7OVaqO4WUM-zWxGl0HigtLn9g
+        description: ""
+        id: pair_53b0c73cff35431991a6e0aba8e7cc6d
+    authentication: {}
+    metaSortKey: -1605659173936
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b162e5b19d9049f88abe10c0b15860a7
+    parentId: fld_84f3fc2d42e3416db6a3dbc47b361bd0
+    modified: 1601780421106
+    created: 1601780421106
+    name: consent
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421106
+    _type: request_group
+  - _id: req_5568ae59edd74891b667cecd017d3ea0
+    parentId: fld_b162e5b19d9049f88abe10c0b15860a7
+    modified: 1609433441525
+    created: 1601780421105
+    url: http://127.0.0.1:8080/graphql
+    name: addConsent
+    description: This request can be used to add a `Consent` type object to the
+      database. Note that this is separate from the `ConsentAction` which
+      represents the _acceptance_ of a `Consent` by a `Donor`
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation AddConsent($input: [AddConsentInput!]!)
+        {\n  addConsent(input: $input) {\n    consent
+        {\n      id\n    }\n  }\n}\n","variables":{"input":[{"org":{"id":"0x4"},"textBody":"example
+        text
+        body","destructionDate":"2020-10-26T00:38:47+00:00"}]},"operationName":"AddConsent"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_6d4c0b2603b94d0287e45438b1456b76
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg0IiwiaXNBcHAiOiJmYWxzZSJ9LCJuaWNrbmFtZSI6ImpvaG4uZm9yc3RtZWllciIsIm5hbWUiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzhjOWEzMmVjNzE4ZDA5ODE2MTM5YTUyYTU4MDk5YzhmP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGam8ucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMzFUMTM6NTE6NTkuNzU3WiIsImVtYWlsIjoiam9obi5mb3JzdG1laWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjE3YTNmMWRiZjZmZjAwMTM1Y2E2YTciLCJhdWQiOiJlVU5BOFVTZ250czZsaWlkUmF5cVdHRFBYQ1puUGczMyIsImlhdCI6MTYwOTQyMjcxOSwiZXhwIjoxNjA5NDU4NzE5fQ.SU-wtwxq_OYNF3afCHyh8EHFEKeGxYrFGolcTz10PmoSOkxFv4YnyaohYnd8oKiDMP-RUb8iRx04ENmZQNGjVPyE43i8NsBBLyOEts7PfUAMiz7pjXghaSNAQPYH4L9y09VrY1rSYhPRPeYJWoYlmV4Ht-llwt8z5Ux3i6VR3Jz-Nxva6QPffoUZh2uXwEqR-7q40KzLfqAAijD3cx3lpblqMzlyHTF13ocihLAmtFmuak2IFST2JGSBa0iMf3-lX-fhZ7zEdEuLZNUxG4eawAtr3JnvTvsViY4Q5QsaGYAJsRez_V0NT2hOu4hZprR6Uq6ZPneFmXnJiiTg5K_hUQ
+        id: pair_9a569de3d0a74c64996fd7b2be60403f
+    authentication: {}
+    metaSortKey: -1601780421105
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_88a518a8ae434e678991bc33be66477c
+    parentId: fld_cba04ea23ade43328351f09c92244896
+    modified: 1608575273046
+    created: 1601780421102
+    url: http://localhost:4080/users
+    name: customAddUser
+    description: This is a REST request that directly invokes the `custom` server
+      without going through the `@custom` mutation in `schema.graphql`.
+    method: POST
+    body:
+      mimeType: ""
+      text: |-
+        {
+        	"orgID": "0x27cc",
+        	"email": "john.forstmeier+12@gmail.com",
+        	"password": "testingPassword0!",
+        	"firstName": "JOHN",
+        	"lastName": "FROSTY"
+        }
+    parameters: []
+    headers:
+      - name: folivora-custom-secret
+        value: a1b9a47d-783a-4dd0-8eb4-64b0f6766d97
+        id: pair_2d4294ffcbd642ee8f127db2cb98cdd3
+      - name: Content-Type
+        value: application/json
+        id: pair_3cc1578470c6412d925b598b65ed93cc
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBcHAiOiJ0cnVlIiwiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSJ9LCJpc3MiOiJodHRwczovL2ZvbGl2b3JhLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJscXZuZnoxOUIzUTJ4MDlhcHk3UlM1RkZsT2ZHYXRlRUBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9mb2xpdm9yYS51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTYwODQxMzU4OCwiZXhwIjoxNjA4NDk5OTg4LCJhenAiOiJscXZuZnoxOUIzUTJ4MDlhcHk3UlM1RkZsT2ZHYXRlRSIsInNjb3BlIjoicmVhZDpjbGllbnRfZ3JhbnRzIGNyZWF0ZTpjbGllbnRfZ3JhbnRzIGRlbGV0ZTpjbGllbnRfZ3JhbnRzIHVwZGF0ZTpjbGllbnRfZ3JhbnRzIHJlYWQ6dXNlcnMgdXBkYXRlOnVzZXJzIGRlbGV0ZTp1c2VycyBjcmVhdGU6dXNlcnMgcmVhZDp1c2Vyc19hcHBfbWV0YWRhdGEgdXBkYXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBkZWxldGU6dXNlcnNfYXBwX21ldGFkYXRhIGNyZWF0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgcmVhZDp1c2VyX2N1c3RvbV9ibG9ja3MgY3JlYXRlOnVzZXJfY3VzdG9tX2Jsb2NrcyBkZWxldGU6dXNlcl9jdXN0b21fYmxvY2tzIGNyZWF0ZTp1c2VyX3RpY2tldHMgcmVhZDpjbGllbnRzIHVwZGF0ZTpjbGllbnRzIGRlbGV0ZTpjbGllbnRzIGNyZWF0ZTpjbGllbnRzIHJlYWQ6Y2xpZW50X2tleXMgdXBkYXRlOmNsaWVudF9rZXlzIGRlbGV0ZTpjbGllbnRfa2V5cyBjcmVhdGU6Y2xpZW50X2tleXMgcmVhZDpjb25uZWN0aW9ucyB1cGRhdGU6Y29ubmVjdGlvbnMgZGVsZXRlOmNvbm5lY3Rpb25zIGNyZWF0ZTpjb25uZWN0aW9ucyByZWFkOnJlc291cmNlX3NlcnZlcnMgdXBkYXRlOnJlc291cmNlX3NlcnZlcnMgZGVsZXRlOnJlc291cmNlX3NlcnZlcnMgY3JlYXRlOnJlc291cmNlX3NlcnZlcnMgcmVhZDpkZXZpY2VfY3JlZGVudGlhbHMgdXBkYXRlOmRldmljZV9jcmVkZW50aWFscyBkZWxldGU6ZGV2aWNlX2NyZWRlbnRpYWxzIGNyZWF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgcmVhZDpydWxlcyB1cGRhdGU6cnVsZXMgZGVsZXRlOnJ1bGVzIGNyZWF0ZTpydWxlcyByZWFkOnJ1bGVzX2NvbmZpZ3MgdXBkYXRlOnJ1bGVzX2NvbmZpZ3MgZGVsZXRlOnJ1bGVzX2NvbmZpZ3MgcmVhZDpob29rcyB1cGRhdGU6aG9va3MgZGVsZXRlOmhvb2tzIGNyZWF0ZTpob29rcyByZWFkOmFjdGlvbnMgdXBkYXRlOmFjdGlvbnMgZGVsZXRlOmFjdGlvbnMgY3JlYXRlOmFjdGlvbnMgcmVhZDplbWFpbF9wcm92aWRlciB1cGRhdGU6ZW1haWxfcHJvdmlkZXIgZGVsZXRlOmVtYWlsX3Byb3ZpZGVyIGNyZWF0ZTplbWFpbF9wcm92aWRlciBibGFja2xpc3Q6dG9rZW5zIHJlYWQ6c3RhdHMgcmVhZDp0ZW5hbnRfc2V0dGluZ3MgdXBkYXRlOnRlbmFudF9zZXR0aW5ncyByZWFkOmxvZ3MgcmVhZDpzaGllbGRzIGNyZWF0ZTpzaGllbGRzIHVwZGF0ZTpzaGllbGRzIGRlbGV0ZTpzaGllbGRzIHJlYWQ6YW5vbWFseV9ibG9ja3MgZGVsZXRlOmFub21hbHlfYmxvY2tzIHVwZGF0ZTp0cmlnZ2VycyByZWFkOnRyaWdnZXJzIHJlYWQ6Z3JhbnRzIGRlbGV0ZTpncmFudHMgcmVhZDpndWFyZGlhbl9mYWN0b3JzIHVwZGF0ZTpndWFyZGlhbl9mYWN0b3JzIHJlYWQ6Z3VhcmRpYW5fZW5yb2xsbWVudHMgZGVsZXRlOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGNyZWF0ZTpndWFyZGlhbl9lbnJvbGxtZW50X3RpY2tldHMgcmVhZDp1c2VyX2lkcF90b2tlbnMgY3JlYXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgZGVsZXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgcmVhZDpjdXN0b21fZG9tYWlucyBkZWxldGU6Y3VzdG9tX2RvbWFpbnMgY3JlYXRlOmN1c3RvbV9kb21haW5zIHVwZGF0ZTpjdXN0b21fZG9tYWlucyByZWFkOmVtYWlsX3RlbXBsYXRlcyBjcmVhdGU6ZW1haWxfdGVtcGxhdGVzIHVwZGF0ZTplbWFpbF90ZW1wbGF0ZXMgcmVhZDptZmFfcG9saWNpZXMgdXBkYXRlOm1mYV9wb2xpY2llcyByZWFkOnJvbGVzIGNyZWF0ZTpyb2xlcyBkZWxldGU6cm9sZXMgdXBkYXRlOnJvbGVzIHJlYWQ6cHJvbXB0cyB1cGRhdGU6cHJvbXB0cyByZWFkOmJyYW5kaW5nIHVwZGF0ZTpicmFuZGluZyBkZWxldGU6YnJhbmRpbmcgcmVhZDpsb2dfc3RyZWFtcyBjcmVhdGU6bG9nX3N0cmVhbXMgZGVsZXRlOmxvZ19zdHJlYW1zIHVwZGF0ZTpsb2dfc3RyZWFtcyBjcmVhdGU6c2lnbmluZ19rZXlzIHJlYWQ6c2lnbmluZ19rZXlzIHVwZGF0ZTpzaWduaW5nX2tleXMgcmVhZDpsaW1pdHMgdXBkYXRlOmxpbWl0cyBleHRyYSIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.dAhVaHJKAAvB8LjXUHb18Yahrn6kjNjDuizRTrm7qdNZZhhZ1MkgBd71nRRqDgqRSuCNPFKzjgjiid_jbaGQuPwwASTrq1wjQNRmTURNlyrI0wRxFB6SdYsvxcPAjjEgUitQNBImZ63pwf2i8P_-y9RulipiNSkP94LMFXeS8jK4x7OXF6n_zwObYFaYY60h4LfRmVqW4NWgr3M7qtAHGtOsBclFSUGuNNKTX9bvijoRjHqtXYx7i_TqtU95pNfWvtYEhho8wDxydXoaMxEWrDCXJSuScZ80rAT9D429MUzJAPwJuLjjqYCC0F3_qyHh7s1Fe84NixX9Z8M33xkkaQ
+        id: pair_d28382e122bf4ec38c7842c03f6b7c1e
+    authentication: {}
+    metaSortKey: -1601859122751.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_cba04ea23ade43328351f09c92244896
+    parentId: fld_45f3342049aa4a299809e6f4caf3c872
+    modified: 1601859123929
+    created: 1601859123929
+    name: users
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601859123929
+    _type: request_group
+  - _id: fld_45f3342049aa4a299809e6f4caf3c872
+    parentId: fld_c4b7d072c9074680ac0bdd6edb4573a9
+    modified: 1601780421103
+    created: 1601780421103
+    name: custom
+    description: >-
+      ### Description
+
+
+      This is a collection of requests for directly testing the `backend/custom` package. Note that these are _**not**_ GraphQL operations and are plain HTTP requests as that is what the `backend/custom` handlers are currently configured to accept.
+
+
+      The Dgraph instance will need to be running due to the "callback" that `backend/custom` makes but it will _not_ be the direct recipient of these requests. These requests are all to act _as if_ they were coming from the Dgraph `@custom` directives for managing `User` type objects.
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1601780421103
+    _type: request_group
+  - _id: req_497352ab4e244b65a4f615124521fec6
+    parentId: fld_cba04ea23ade43328351f09c92244896
+    modified: 1607655240850
+    created: 1601780421100
+    url: http://localhost:4080/auth0/users
+    name: customUpdateUser
+    description: >-
+      This is a REST request that directly invokes the `custom` server without
+      going through the `@custom` mutation in `schema.graphql`.
+
+
+      *NOTE*: in order to test this out directly, the tester will need to manually update the Auth0 User ID in payload body. The ID is available in the response payload of the `customAddUser` or in the Auth0 Dashboard. It does ***NOT** need to be URL encoded.
+    method: PATCH
+    body:
+      mimeType: ""
+      text: >-
+        {
+        	"authZeroID": "auth0|64333836313034362d313835352d343034332d386533342d323831623539376265616339",
+        	"password": "!testingPassword0"
+        }
+    parameters: []
+    headers:
+      - name: folivora-custom-secret
+        value: a1b9a47d-783a-4dd0-8eb4-64b0f6766d97
+        id: pair_279a8b5a7de34010914224d79796b625
+      - name: Content-Type
+        value: application/json
+        id: pair_789873e2029948c49f2e925b44c105eb
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg1NTJhIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMC0zMVQwMjowNjo0Mi40NTZaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjA0MTEwMDAyLCJleHAiOjE2MDQxNDYwMDJ9.PzbOa1VHT42tlBDy7Z6UEkDoy17RWUL1BgzrcZ6mFmcyW1z05RinBIggXjgUC7s8sBEN04j35vwdXrOfm7GQXqmK6ue_Slc3qu-XzSZd_TmIpCp37C2mEJTkUfNxeYko4PfXlS5QXJ83q21GKpZZP0s2Bk9sReTyFLBfG_337saYhDO8wGGRzkEevvHg2Lv6n0C1rTE7u_MFCrQtFk38jihQ7z22T7PMXS0x-O5X3Tovh-bbxIwlEkH-enPOj4Q_k0dRzJ8PiVpm_pBj0kQ77ArK8nilqz-iBkq24wLY9iYzLpF-WHVv_tgjT7XSLSCk_Cc4S_TeX_p6u3xKwtzhIw
+        id: pair_c2d6fe2de276475baf7da468949198c9
+    authentication: {}
+    metaSortKey: -1601859122701.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_74be1ce05c67413d838f6bc95b3cb3f7
+    parentId: fld_cba04ea23ade43328351f09c92244896
+    modified: 1607655258018
+    created: 1601780421099
+    url: http://localhost:4080/auth0/users
+    name: customDeleteUser
+    description: >-
+      This is a REST request that directly invokes the `custom` server without
+      going through the `@custom` mutation in `schema.graphql`.
+
+
+      *NOTE*: in order to test this out directly, the tester will need to manually update the Auth0 User ID in payload body. The ID is available in the response payload of the `customAddUser` or in the Auth0 Dashboard. It does ***NOT** need to be URL encoded.
+    method: DELETE
+    body:
+      mimeType: ""
+      text: >-
+        {
+        	"authZeroID": "auth0|64333836313034362d313835352d343034332d386533342d323831623539376265616339"
+        }
+    parameters: []
+    headers:
+      - name: folivora-custom-secret
+        value: a1b9a47d-783a-4dd0-8eb4-64b0f6766d97
+        id: pair_e75897aef16747689d401ba75bc1cfe4
+      - name: Content-Type
+        value: application/json
+        id: pair_71f5e28997d4472aa06586369db88318
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg1NTJhIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMC0zMVQwMjowNjo0Mi40NTZaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjA0MTEwMDAyLCJleHAiOjE2MDQxNDYwMDJ9.PzbOa1VHT42tlBDy7Z6UEkDoy17RWUL1BgzrcZ6mFmcyW1z05RinBIggXjgUC7s8sBEN04j35vwdXrOfm7GQXqmK6ue_Slc3qu-XzSZd_TmIpCp37C2mEJTkUfNxeYko4PfXlS5QXJ83q21GKpZZP0s2Bk9sReTyFLBfG_337saYhDO8wGGRzkEevvHg2Lv6n0C1rTE7u_MFCrQtFk38jihQ7z22T7PMXS0x-O5X3Tovh-bbxIwlEkH-enPOj4Q_k0dRzJ8PiVpm_pBj0kQ77ArK8nilqz-iBkq24wLY9iYzLpF-WHVv_tgjT7XSLSCk_Cc4S_TeX_p6u3xKwtzhIw
+        id: pair_24f7fe14613b46f29456d6fe7f90eff2
+    authentication: {}
+    metaSortKey: -1601859122651.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0fbd8578a9ad4c3fa638995cacd41037
+    parentId: fld_cba04ea23ade43328351f09c92244896
+    modified: 1607655274248
+    created: 1601780421097
+    url: http://127.0.0.1:8080/graphql
+    name: checkCreateUser
+    description: Fetch an unfiltered array of `User` objects from the database.
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query QueryUsers($filter: UserFilter) {\n  queryUser(filter:
+        $filter) {\n    org
+        {\n      id\n    }\n    id\n    email\n    auth0ID\n  }\n}\n","variables":{"filter":{"auth0ID":{"eq":"auth0|64333836313034362d313835352d343034332d386533342d323831623539376265616339"}}},"operationName":"QueryUsers"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_184cdc7e5868416cb6ba8e26ec55de04
+      - name: X-Auth0-Token
+        value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Img3NTBPT3RTb0s2dnlCVWdQZXlweSJ9.eyJodHRwczovL2ZvbGl2b3JhLmlvL2p3dC9jbGFpbXMiOnsiaXNBdXRoZW50aWNhdGVkIjoidHJ1ZSIsIm9yZ0lEIjoiMHg1NTJhIn0sIm5pY2tuYW1lIjoiam9obi5mb3JzdG1laWVyIiwibmFtZSI6ImpvaG4uZm9yc3RtZWllckBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvOGM5YTMyZWM3MThkMDk4MTYxMzlhNTJhNTgwOTljOGY_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZqby5wbmciLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMC0zMVQwMjowNjo0Mi40NTZaIiwiZW1haWwiOiJqb2huLmZvcnN0bWVpZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vZm9saXZvcmEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMTdhM2YxZGJmNmZmMDAxMzVjYTZhNyIsImF1ZCI6ImVVTkE4VVNnbnRzNmxpaWRSYXlxV0dEUFhDWm5QZzMzIiwiaWF0IjoxNjA0MTEwMDAyLCJleHAiOjE2MDQxNDYwMDJ9.PzbOa1VHT42tlBDy7Z6UEkDoy17RWUL1BgzrcZ6mFmcyW1z05RinBIggXjgUC7s8sBEN04j35vwdXrOfm7GQXqmK6ue_Slc3qu-XzSZd_TmIpCp37C2mEJTkUfNxeYko4PfXlS5QXJ83q21GKpZZP0s2Bk9sReTyFLBfG_337saYhDO8wGGRzkEevvHg2Lv6n0C1rTE7u_MFCrQtFk38jihQ7z22T7PMXS0x-O5X3Tovh-bbxIwlEkH-enPOj4Q_k0dRzJ8PiVpm_pBj0kQ77ArK8nilqz-iBkq24wLY9iYzLpF-WHVv_tgjT7XSLSCk_Cc4S_TeX_p6u3xKwtzhIw
+        id: pair_63a87111bef34f06b42465602934b09d
+    authentication: {}
+    metaSortKey: -1601859122601.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_9c211c8d536678d7ba9dc9d75b222f8e0ace9aa3
+    parentId: wrk_883c8c6e41144bbdb22935fbe73b012c
+    modified: 1601780397519
+    created: 1601780397519
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1601780397520
+    _type: environment
+  - _id: jar_9c211c8d536678d7ba9dc9d75b222f8e0ace9aa3
+    parentId: wrk_883c8c6e41144bbdb22935fbe73b012c
+    modified: 1601780397521
+    created: 1601780397521
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_688eec69af2b46f7ab914b588b4cd227
+    parentId: wrk_883c8c6e41144bbdb22935fbe73b012c
+    modified: 1601780397479
+    created: 1601780397479
+    fileName: Folivora
+    contents: ""
+    contentType: yaml
+    _type: api_spec
