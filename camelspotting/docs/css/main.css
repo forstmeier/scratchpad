@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a,
+a:hover,
+a:visited,
+a:link {
+  text-decoration: none;
+  color: #A53636;
+}
+
+body {
+  background-image: url("../img/camel.jpg");
+  background-size: 100%;
+  text-align: center;
+  width: 100%;
+}
+
+h1,
+p {
+  color: #C15959;
+  font-family: "Arimo", "sans serif";
+  font-weight: 700;
+}
+
+.box {
+  display: inline-block;
+  margin-top: 50px;
+}
+
+.content {
+  background-color: rgba(255,255,255,0.25);
+  box-sizing: border-box;
+  color: white;
+  height: 315px;
+  position: relative;
+  padding: 20px;
+  text-align: left;
+  vertical-align: top;
+  width: 300px;
+}
+
+.credit {
+  bottom: 20px;
+  position: absolute;
+}
