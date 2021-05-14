@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# run_api runs the Docker Compose definition for Go and Dgraph resources.
+
+docker-compose up --build

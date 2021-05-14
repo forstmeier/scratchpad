@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# load_schema inserts the schema into the Dgraph database.
+
+curl -X POST localhost:4080/admin/schema --data-binary '@db/schema.graphql'

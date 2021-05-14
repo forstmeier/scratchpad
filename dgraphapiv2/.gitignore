@@ -1,0 +1,10 @@
+# dgraph resources
+zw/
+w/
+p/
+
+# unit test output
+coverage.out
+
+# config file
+etc/config/config.json

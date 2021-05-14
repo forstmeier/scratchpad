@@ -1,0 +1,168 @@
+# app definitions
+
+"""
+Token defines the value and associated owner fields for
+the token issued for uses to interact with the API programmatically.
+"""
+type Token @auth(
+	add: { rule: "{ $isApp: { eq: \"true\" } }" },
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryToken( filter: { id: [$orgID] } ) {
+					id
+				}
+			}"""},
+		]},
+	]},
+    query: { rule: "{ $isApp: { eq: \"lock\" } }" }, # query is not needed
+    update: { rule: "{ $isApp: { eq: \"lock\" } }" }, # update is not needed
+	delete: { rule: "{ $isApp: { eq: \"true\" } }" }
+) {
+    id: ID!
+    value: String! @search(by: [exact])
+    user: User! @hasInverse(field: tokens)
+    org: Org! @hasInverse(field: tokens)
+    createdAt: DateTime! @search
+}
+
+"""
+Org is the owner organization of specified app assets.
+
+All other types defined in the schema include an `org` field, with/out
+a `@hasInverse` directive, to enforce multitenancy `@auth` rules.
+"""
+type Org @auth(
+	add: { rule: "{ $isApp: { eq: \"true\" } }" },
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryOrg( filter: { id: [$orgID] } ) {
+					id
+				}
+			}"""},
+		]},
+	]},
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryOrg( filter: { id: [$orgID] } ) {
+					id
+				}
+			}"""},
+		]},
+	]},
+	update: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryOrg( filter: { id: [$orgID] } ) {
+					id
+				}
+			}"""},
+		]},
+	]},
+	delete: { rule: "{ $isApp: { eq: \"true\" } }" }
+) {
+    id: ID!
+    name: String!
+    users: [User]
+    tokens: [Token]
+    createdAt: DateTime!
+}
+
+"""
+User is an individual member of the owner `org`.
+
+The `auth0ID` field is populated by the wrapper server Auth0 logic.
+"""
+type User @auth(
+	add: { rule: "{ $isApp: { eq: \"true\" } }" },
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryUser {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]}
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryUser {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	update: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryUser {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	delete: { rule: "{ $isApp: { eq: \"true\" } }" }
+) {
+    id: ID!
+    email: String!
+    org: Org! @hasInverse(field: users)
+    firstName: String! @search(by: [exact])
+    lastName: String! @search(by: [exact])
+    auth0ID: String! @search(by: [exact])
+    tokens: [Token]
+    createdAt: DateTime!
+}
+
+"""
+Log represents an instance of a user or app running a given query against
+the API.
+
+These can be queried by any user but can only be added by the app.
+"""
+type Log @auth(
+	add: { rule: "{ $isApp: { eq: \"true\" } }" },
+	get: { rule: "{ $isApp: { eq: \"lock\" } }" }, # get is not needed
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryLog {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	update: { rule: "{ $isApp: { eq: \"lock\" } }" }, # update is not needed
+	delete: { rule: "{ $isApp: { eq: \"lock\" } }" } # delete is not needed
+) {
+	id: ID!
+	timestamp: DateTime!
+	email: String!
+	query: String!
+}
