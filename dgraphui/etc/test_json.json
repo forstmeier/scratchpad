@@ -1,0 +1,15 @@
+[
+    {
+        "externalID": "external_id",
+        "type": "BLOOD",
+        "collectionDate": "2019-10-12T07:20:50.52Z",
+        "donor": "0x9cff",
+        "container": "VIAL",
+        "status": "IN_INVENTORY",
+        "description": "A piece of blood",
+        "consent": "0x9d00",
+        "tests": [],
+        "bloodType": "A_NEG",
+        "volume": 1.01
+    }
+]
