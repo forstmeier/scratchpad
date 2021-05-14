@@ -1,0 +1,99 @@
+ 
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Resources for the PermissionGuru API functionality
+Parameters:
+  EnvironmentName:
+    Type: String
+    Description: Current environment name
+  StripeAPIKey:
+    Type: String
+    Description: Stripe API key
+  StripeFixedPriceID:
+    Type: String
+    Description: Stripe fixed price ID
+  StripeVariablePriceID:
+    Type: String
+    Description: Stripe variable price ID
+Resources:
+  acct:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: cmd/acct
+      Description: Lambda responsible for adding/removing accounts
+      Environment:
+        Variables:
+          ENVIRONMENT_NAME: !Ref EnvironmentName
+          STRIPE_API_KEY: !Ref StripeAPIKey
+          STRIPE_FIXED_PRICE_ID: !Ref StripeFixedPriceID
+          STRIPE_VARIABLE_PRICE_ID: !Ref StripeVariablePriceID
+      Events:
+        AddHandler:
+          Type: Api
+          Properties:
+            Path: '/acct'
+            Method: post
+        RemoveHandler:
+          Type: Api
+          Properties:
+            Path: '/acct'
+            Method: delete
+      FunctionName: AccountLambda
+      Handler: acct
+      MemorySize: 256
+      PackageType: Zip
+      Policies: AmazonDynamoDBFullAccess
+      Runtime: go1.x
+      Tags:
+        app: permissionguru
+      Timeout: 10
+  config:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: cmd/config
+      Description: Lambda responsible for adding/updating configs
+      Events:
+        AddHandler:
+          Type: Api
+          Properties:
+            Path: '/config'
+            Method: post
+      FunctionName: ConfigLambda
+      Handler: config
+      MemorySize: 256
+      PackageType: Zip
+      Policies: AmazonDynamoDBFullAccess
+      Runtime: go1.x
+      Tags:
+        app: permissionguru
+      Timeout: 10
+  doc:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: cmd/doc
+      Description: Lambda responsible for parsing/processing docs
+      Events:
+        ProcessHandler:
+          Type: Api
+          Properties:
+            Path: '/doc'
+            Method: post
+      FunctionName: DocLambda
+      Handler: doc
+      MemorySize: 768
+      PackageType: Zip
+      Policies: AmazonDynamoDBFullAccess
+      Runtime: go1.x
+      Tags:
+        app: permissionguru
+      Timeout: 10
+  db:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      # ProvisionedThroughput: ProvisionedThroughput
+      TableName: accounts
+      Tags:
+        app: permissionguru

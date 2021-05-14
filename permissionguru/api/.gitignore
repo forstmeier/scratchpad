@@ -1,0 +1,8 @@
+# unit test output
+coverage.out
+
+# private environment variables
+etc/env
+
+# generated sam resources
+.aws-sam

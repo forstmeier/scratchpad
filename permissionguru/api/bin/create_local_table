@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# create_local_table adds a table to the locally running
+# DynamoDB Docker container.
+
+aws dynamodb create-table \
+--table-name accounts \
+--attribute-definitions AttributeName=id,AttributeType=S \
+--key-schema AttributeName=id,KeyType=HASH \
+--endpoint-url http://localhost:8000 \
+--provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# start_local_lambda launches local SAM resources for 
+# API endpoints and Lambda functions.
+
+stripe_api_key=$(jq '.STRIPE.DEV.API_KEY' etc/env/env.json)
+stripe_fixed_price_id=$(jq '.STRIPE.DEV.FIXED_PRICE_ID' etc/env/env.json)
+stripe_variable_price_id=$(jq '.STRIPE.DEV.VARIABLE_PRICE_ID' etc/env/env.json)
+
+sam build
+
+sam local start-api \
+--parameter-overrides \
+'ParameterKey=EnvironmentName,ParameterValue=dev' \
+'ParameterKey=StripeAPIKey,ParameterValue='$stripe_api_key',' \
+'ParameterKey=StripeFixedPriceID,ParameterValue='$stripe_fixed_price_id',' \
+'ParameterKey=StripeVariablePriceID,ParameterValue='$stripe_variable_price_id

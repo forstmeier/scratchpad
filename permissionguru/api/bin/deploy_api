@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# deploy_api launches the configured AWS resources in the
+# default AWS account.
+
+stripe_api_key=$(jq '.STRIPE.PROD.API_KEY' etc/env/env.json)
+stripe_fixed_price_id=$(jq '.STRIPE.PROD.FIXED_PRICE_ID' etc/env/env.json)
+stripe_variable_price_id=$(jq '.STRIPE.PROD.VARIABLE_PRICE_ID' etc/env/env.json)
+
+sam build
+
+sam deploy \
+--stack-name PermissionGuru \
+--capabilities CAPABILITY_IAM \
+--s3-bucket permissionguru \
+--s3-prefix api \
+--parameter-overrides \
+'ParameterKey=EnvironmentName,ParameterValue=prod' \
+'ParameterKey=StripeAPIKey,ParameterValue='$stripe_api_key',' \
+'ParameterKey=StripeFixedPriceID,ParameterValue='$stripe_fixed_price_id',' \
+'ParameterKey=StripeVariablePriceID,ParameterValue='$stripe_variable_price_id

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# teardown_api tears down the AWS resources in the default
+# AWS account and deletes the uploaded artifacts.
+
+aws cloudformation delete-stack --stack-name PermissionGuru 1> /dev/null
+
+aws s3 rm s3://permissionguru/api/ --recursive

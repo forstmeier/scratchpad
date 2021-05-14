@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# start_local_dynamodb starts a Docker container for
+# a local testing instance of DynamoDB.
+
+docker run -p 8000:8000 amazon/dynamodb-local
