@@ -1,0 +1,602 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Rought template for the AWS resources/configurations required for Quehook",
+  "Parameters": {
+    "QuehookBucket": {
+      "Description": "Name for the previously-created S3 bucket used by the Quehook application",
+      "Type": "String"
+    },
+    "QuehookSecret": {
+      "Description": "Secret value for application managers for deleting queries",
+      "Type": "String",
+      "Default": "quehook-secret"
+    }
+  },
+  "Resources": {
+    "QuehookSubscriptionSubscribe": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "QuehookBucket"
+          },
+          "S3Key": "quehook-subscribe.zip"
+        },
+        "Description": "Lambda responsible for adding new subscribers",
+        "FunctionName": "quehook-subscription-subscribe",
+        "Handler": "subscribe",
+        "MemorySize": 256,
+        "Role": {
+          "Fn::GetAtt": [
+            "QuehookSubscriptionRole",
+            "Arn"
+          ]
+        },
+        "Runtime": "go1.x",
+        "Timeout": 5
+      }
+    },
+    "QuehookSubscriptionUnsubscribe": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "QuehookBucket"
+          },
+          "S3Key": "quehook-unsubscribe.zip"
+        },
+        "Description": "Lambda responsible for removing subscribers",
+        "FunctionName": "quehook-subscription-unsubscribe",
+        "Handler": "unsubscribe",
+        "MemorySize": 256,
+        "Role": {
+          "Fn::GetAtt": [
+            "QuehookSubscriptionRole",
+            "Arn"
+          ]
+        },
+        "Runtime": "go1.x",
+        "Timeout": 5
+      }
+    },
+    "QuehookQueryCreate": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "QuehookBucket"
+          },
+          "S3Key": "quehook-create.zip"
+        },
+        "Description": "Lambda responsible for creating new queries",
+        "FunctionName": "quehook-query-create",
+        "Handler": "create",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "QuehookQueryRole",
+            "Arn"
+          ]
+        },
+        "Runtime": "go1.x",
+        "Timeout": 30
+      }
+    },
+    "QuehookQueryDelete": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "QuehookBucket"
+          },
+          "S3Key": "quehook-delete.zip"
+        },
+        "Description": "Lambda responsible for deleting queries",
+        "Environment": {
+          "Variables": {
+            "quehook_secret": {
+              "Ref": "QuehookSecret"
+            }
+          }
+        },
+        "FunctionName": "quehook-query-delete",
+        "Handler": "delete",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "QuehookQueryRole",
+            "Arn"
+          ]
+        },
+        "Runtime": "go1.x",
+        "Timeout": 30
+      }
+    },
+    "QuehookQueryRun": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "QuehookBucket"
+          },
+          "S3Key": "quehook-run.zip"
+        },
+        "Description": "Lambda responsible for running queries and returning results",
+        "FunctionName": "quehook-query-run",
+        "Handler": "run",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "QuehookQueryRole",
+            "Arn"
+          ]
+        },
+        "Runtime": "go1.x",
+        "Timeout": 30
+      }
+    },
+    "QuehookQueries": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "query_name",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "query_name",
+            "KeyType": "HASH"
+          }
+        ],
+        "TableName": "quehook-queries"
+      }
+    },
+    "QuehookSubscribers": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "query_name",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "subscriber_email",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "query_name",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "subscriber_email",
+            "KeyType": "RANGE"
+          }
+        ],
+        "TableName": "quehook-subscribers"
+      }
+    },
+    "QuehookAPI": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Body": {
+          "swagger": "2.0",
+          "info": {
+            "version": "2019-10-03T23:23:20Z",
+            "title": "quehook"
+          },
+          "host": "qkle23wbzb.execute-api.us-east-1.amazonaws.com",
+          "basePath": "/prod",
+          "schemes": [
+            "https"
+          ],
+          "paths": {
+            "/query/create": {
+              "post": {
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/Empty"
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "QuehookQueryCreate",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                }
+              }
+            },
+            "/query/delete": {
+              "post": {
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/Empty"
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "QuehookQueryDelete",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                }
+              }
+            },
+            "/subscription/subscribe": {
+              "post": {
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/Empty"
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "QuehookSubscriptionSubscribe",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                }
+              }
+            },
+            "/subscription/unsubscribe": {
+              "post": {
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/Empty"
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "QuehookSubscriptionUnsubscribe",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                }
+              }
+            }
+          },
+          "definitions": {
+            "Empty": {
+              "type": "object",
+              "title": "Empty Schema"
+            }
+          }
+        },
+        "EndpointConfiguration": {
+          "Types": [
+            "REGIONAL"
+          ]
+        },
+        "Name": "quehook"
+      }
+    },
+    "QuehookAPIDeployment": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "QuehookAPI"
+        },
+        "StageName": "prod"
+      }
+    },
+    "QuehookDynamoDBPolicy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "VisualEditor0",
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:Query"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "ManagedPolicyName": "quehook-dynamodb-policy"
+      }
+    },
+    "QuehookS3Policy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "VisualEditor0",
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:DeleteObject"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "ManagedPolicyName": "quehook-s3-policy"
+      }
+    },
+    "QuehookQueryRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Description": "Permissions for query logic Lambdas",
+        "Path": "/",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "QuehookDynamoDBPolicy"
+          },
+          {
+            "Ref": "QuehookS3Policy"
+          },
+          "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+        ],
+        "RoleName": "quehook-query-role"
+      }
+    },
+    "QuehookSubscriptionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Description": "Permissions for subscription logic Lambdas",
+        "Path": "/",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "QuehookDynamoDBPolicy"
+          },
+          "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+        ],
+        "RoleName": "quehook-subscription-role"
+      }
+    },
+    "QuehookSubscriptionSubscribePermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuehookSubscriptionSubscribe",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com"
+      }
+    },
+    "QuehookSubscriptionUnsubscribePermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuehookSubscriptionUnsubscribe",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com"
+      }
+    },
+    "QuehookQueryCreatePermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuehookQueryCreate",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com"
+      }
+    },
+    "QuehookQueryDeletePermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuehookQueryDelete",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com"
+      }
+    },
+    "QuehookQueryRunPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "QuehookQueryRun",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "events.amazonaws.com"
+      }
+    },
+    "QuehookTrigger": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Periodic trigger for running stored queries",
+        "Name": "quehook-trigger",
+        "ScheduleExpression": "cron(10 * * * ? *)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "QuehookQueryRun",
+                "Arn"
+              ]
+            },
+            "Id": "quehook-run"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "QuehookURL": {
+      "Description": "API Gateway URL endpoint for the application API",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "QuehookAPI"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".amazonaws.com/prod"
+          ]
+        ]
+      }
+    }
+  }
+}

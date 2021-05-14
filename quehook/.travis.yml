@@ -1,0 +1,33 @@
+sudo: required
+language: go
+go:
+  - 1.x
+before_install:
+  - go get github.com/mattn/goveralls
+  - go get github.com/modocache/gover
+  - go get -u golang.org/x/lint/golint
+install:
+  - go get -t -v ./...
+script:
+  - if [ -n "$(gofmt -l .)" ]; then echo "gofmt failed" ; exit 1 ; else echo "gofmt succeeded" ; fi
+  - golint -set_exit_status
+  - go build ./...
+  - go test -v -race github.com/forstmeier/quehook/query -coverprofile=query.coverprofile
+  - go test -v -race github.com/forstmeier/quehook/storage -coverprofile=storage.coverprofile
+  - go test -v -race github.com/forstmeier/quehook/subscription -coverprofile=subscription.coverprofile
+  - go test -v -race github.com/forstmeier/quehook/table -coverprofile=table.coverprofile
+  - gover
+  - "$GOPATH/bin/goveralls -coverprofile=gover.coverprofile -service=travis-ci"
+  - rm *.coverprofile
+after_success:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+deploy:
+  - provider: script
+    script: bash deploy.sh
+    on:
+      repo: forstmeier/quehook
+      all_branches: true
+    skip_cleanup: true
+notifications:
+  email: false
