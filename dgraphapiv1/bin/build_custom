@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# build_custom builds the Docker image for the custom/ package.
+
+docker build -t custom:latest .

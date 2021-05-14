@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# run_api runs the Docker Compose definition for the custom/ package and Dgraph images.
+
+docker-compose up --build

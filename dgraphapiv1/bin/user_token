@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# user_token generates a JWT from the Auth0 test user.
+
+cd util/token/user && go run main.go

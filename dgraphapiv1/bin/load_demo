@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# load_demo inserts test data into the running Dgraph database.
+
+cd util/demo && go run .

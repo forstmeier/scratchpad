@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# app_token generates a JWT from the Auth0 "backend" Application.
+
+cd util/token/app && go run main.go

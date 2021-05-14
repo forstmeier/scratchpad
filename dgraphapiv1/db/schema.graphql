@@ -1,0 +1,558 @@
+# folivora definitions
+
+"""
+Org is the owner organization of specified Folivora assets.
+
+All other types defined in the schema include an `org` field, with/out
+a `@hasInverse` directive, to enforce multitenancy `@auth` rules.
+"""
+type Org @auth(
+	add: { rule: "{ $isApp: { eq: \"true\" } }" },
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryOrg( filter: { id: [$orgID] } ) {
+					id
+				}
+			}"""},
+		]},
+	]},
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryOrg( filter: { id: [$orgID] } ) {
+					id
+				}
+			}"""},
+		]},
+	]},
+	update: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryOrg( filter: { id: [$orgID] } ) {
+					id
+				}
+			}"""},
+		]},
+	]},
+	delete: { rule: "{ $isApp: { eq: \"true\" } }" }
+) {
+	id: ID!
+	name: String!
+	users: [User]
+}
+
+"""
+User is an individual member of the owner `org`.
+
+The `auth0ID` field is populated by the `@custom` "create" directive.
+"""
+type User @auth(
+	add: { rule: "{ $isApp: { eq: \"true\" } }" },
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryUser {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]}
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryUser {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	update: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryUser {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	delete: { rule: "{ $isApp: { eq: \"true\" } }" }
+) {
+	id: ID!
+	email: String!
+	org: Org! @hasInverse(field: users)
+	firstName: String! @search(by: [exact])
+	lastName: String! @search(by: [exact])
+	auth0ID: String! @search(by: [exact])
+}
+
+# donor definitions
+
+"""
+Donor is an individual contributing physical specimens.
+
+The `consents` field is updated as the Donor agrees to donations.
+"""
+type Donor @auth(
+	add: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonor {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonor {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonor {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	update: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonor {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	delete: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonor {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]}
+) {
+	id: ID!
+	org: Org!
+	dob: DateTime! @search
+	sex: Sex @search(by: [exact, regexp])
+	race: Race @search(by: [exact, regexp])
+	donorConsent: [DonorConsentAction] @hasInverse(field: donor)
+	specimens: [Specimen] @hasInverse(field: donor)
+}
+
+"""Consent are the specific agreement for specimen collection."""
+type Consent @auth(
+	add: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryConsent {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryConsent {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryConsent {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	update: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryConsent {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	delete: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryConsent {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]}
+) {
+	id: ID!
+	org: Org!
+	donorConsent: [DonorConsentAction] @hasInverse(field: consent)
+	textBody: String! @search(by: [fulltext])
+	specimens: [Specimen] @hasInverse(field: consent)
+	destructionDate: DateTime! @search
+}
+
+"""
+DonorConsentAction is the Donor action to accept a Consent.
+
+The `donor` and `consent` fields are required to sync a Donor with
+a specific Consent.
+"""
+type DonorConsentAction @auth(
+	add: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonorConsentAction {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonorConsentAction {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonorConsentAction {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	update: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonorConsentAction {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	delete: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryDonorConsentAction {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]}
+) {
+	id: ID!
+	org: Org!
+	donor: Donor! @hasInverse(field: donorConsent)
+	consent: Consent! @hasInverse(field: donorConsent)
+	timestamp: DateTime! @search
+}
+
+"""Sex is the option for populating the Donor `sex` field."""
+enum Sex {
+	MALE
+	FEMALE
+}
+
+"""Race is the option for populating the Donor `race` field."""
+enum Race {
+	AMERICAN_INDIAN_OR_ALASKA_NATIVE
+	ASIAN
+	BLACK_OR_AFRICAN_AMERICAN
+	HISPANIC_OR_LATINO
+	WHITE
+}
+
+# specimen definitions
+
+"""Specimen are the common fields for all specimen-type objects."""
+interface Specimen @auth(
+	add: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				querySpecimen {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				querySpecimen {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				querySpecimen {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	update: { rule: "{ $isApp: { eq: \"true\" } }" },,
+	delete: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				querySpecimen {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]}
+) {
+	id: ID!
+	org: Org!
+	externalID: String! @search(by: [hash])
+	type: SpecimenType @search(by: [exact, regexp])
+	status: SpecimenStatus @search(by: [exact, regexp])
+	donor: Donor! @hasInverse(field: specimens)
+	consent: Consent! @hasInverse(field: specimens)
+	timestamp: DateTime! @search
+}
+
+"""
+BloodSpecimen is blood type implementation of Specimen.
+
+The `bloodType` and `volume` fields are added to all Specimen fields.
+"""
+type BloodSpecimen implements Specimen {
+	bloodType: BloodType! @search(by: [exact, regexp])
+	container: ContainerType! @search(by: [exact, regexp])
+	volume: Float! @search
+	description: String! @search(by: [fulltext])
+	updates: [BloodSpecimenUpdate] @hasInverse(field: bloodSpecimen)
+}
+
+"""
+BloodSpecimenUpdate is a helper type to provide a historical trail of
+update mutations executed on a BloodSpecimen type.
+
+This type is added programmatically via a @custom mutation; although
+all of the fields are technically updatable, the @custom definition
+will limit possible inputs.
+"""
+type BloodSpecimenUpdate @auth(
+	add: { rule: "{ $isApp: { eq: \"true\" } }" },
+	get: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryBloodSpecimenUpdate {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	query: { or: [
+		{ rule: "{ $isApp: { eq: \"true\" } }" },
+		{ and: [
+			{ rule: "{ $isAuthenticated: { eq: \"true\" } }" },
+			{ rule: """query( $orgID: ID! ) {
+				queryBloodSpecimenUpdate {
+					org ( filter: { id: [$orgID] } ) {
+						id
+					}
+				}
+			}"""},
+		]},
+	]},
+	update: { rule: "{ $isApp: { eq: \"true\" } }" },
+	delete: { rule: "{ $isApp: { eq: \"true\" } }" }
+) {
+	id: ID!
+	org: Org!
+	bloodSpecimen: BloodSpecimen! @hasInverse(field: updates)
+	bloodType: BloodType @search(by: [exact, regexp])
+	container: ContainerType @search(by: [exact, regexp])
+	volume: Float @search
+	description: String @search(by: [fulltext])
+	timestamp: DateTime! @search
+}
+
+"""
+SpecimenType is the option for populating the Specimen `type` field.
+
+This field allows for easier querying.
+"""
+enum SpecimenType {
+	BLOOD
+}
+
+"""ContainerType is the option for populating the Specimen `container` field."""
+enum ContainerType {
+	VIAL
+}
+
+"""SpecimenStatus is the option for populating the Specimen `status` field."""
+enum SpecimenStatus {
+	DESTROYED
+	EXHAUSTED
+	IN_INVENTORY
+	IN_TRANSIT
+	LOST
+	RESERVED
+	TRANSFERRED
+}
+
+"""BloodType is the option for populating the BloodSpecimen `bloodType` field."""
+enum BloodType {
+	O_NEG
+	O_POS
+	A_NEG
+	A_POS
+	B_NEG
+	B_POS
+	AB_NEG
+	AB_POS
+}
+
+# custom mutations
+
+type Mutation {
+	# "authZeroID" is due to a current limitation of Dgraph
+	customAddUser(orgID: String!, email: String!, password: String!, firstName: String!, lastName: String!): User @custom(http: {
+		url: "http://custom:4080/users",
+		method: "POST",
+		body: "{ orgID: $orgID, email: $email, password: $password, firstName: $firstName, lastName: $lastName }",
+		forwardHeaders: ["folivora-custom-secret", "X-Auth0-Token"]
+	})
+	customUpdateUser(authZeroID: String!, password: String): User @custom(http: {
+		url: "http://custom:4080/users",
+		method: "PATCH",
+		body: "{ authZeroID: $authZeroID, password: $password }",
+		forwardHeaders: ["folivora-custom-secret", "X-Auth0-Token"]
+	})
+	customDeleteUser(authZeroID: String!): User @custom(http: {
+		url: "http://custom:4080/users",
+		method: "DELETE",
+		body: "{ authZeroID: $authZeroID }",
+		forwardHeaders: ["folivora-custom-secret", "X-Auth0-Token"]
+	})
+	customAddBloodSpecimenUpdate(orgID: String!, bloodSpecimenID: String!, bloodType: String, container: String, volume: Float, description: String): BloodSpecimenUpdate @custom(http: {
+		url: "http://custom:4080/bloodspecimenupdate",
+		method: "POST",
+		body: "{ orgID: $orgID, bloodSpecimenID: $bloodSpecimenID, bloodType: $bloodType, container: $container, volume: $volume, description: $description }",
+		forwardHeaders: ["folivora-custom-secret", "X-Auth0-Token"]
+	})
+}
+
+# Dgraph.Authorization {"VerificationKey":"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt50KaKOwI1/r9yEojzVW\ncOwGTZbL7sjlUaSI25icLPF8eK1R2dbVaKTdZNtq6LAxFe+NDt2AuU7Vtqzv8GGv\nb2RP5KEgUcJyy75Yw0hT4TP3SrzDB2paCfcKHxQlTQ0pFP0SJMk4YCfq+gDqPnXQ\nCfzw+Zff29zZh5bs1lOxvAIgsu9LtH/zX6f5ASMdHV8EPWdZq6nq8KoOiMcAizDj\nrbm/qcAJP6k+ztbgtN6HdD8v6+7uIKStrYRa0BLXdJAra2uaLI4z2H22RHuzhkIu\nytxpYnxDlYTXzroSiRs/vs/dyHixT8smbEQmLoPTpflnoEZcNDXkhf0v9yVtG6NV\n1QIDAQAB\n-----END PUBLIC KEY-----","Header":"X-Auth0-Token","Namespace":"https://folivora.io/jwt/claims","Algo":"RS256","Audience":["eUNA8USgnts6liidRayqWGDPXCZnPg33","https://folivora.us.auth0.com/api/v2/"]}

@@ -1,0 +1,20 @@
+# generated binaries
+cmd/custom/custom
+util/demo/demo
+util/token/token
+
+# dgraph write-ahead log directories
+zw/
+w/
+
+# dgraph posting lists directory
+p/
+
+# config resources
+etc/config/config.json
+
+# demo output
+results.json
+
+# test coverage output
+coverage.out

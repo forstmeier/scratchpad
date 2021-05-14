@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# run_custom runs the Docker container for the custom/ package image.
+
+docker run -p 4080:4080 -it custom
