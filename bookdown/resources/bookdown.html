@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ if (ne .Desc "") }}
+      <meta name="description" content="{{ .Desc }}">
+    {{ end }}
+    {{ if (ne .Keywords "") }}
+      <meta name="keywords" content="{{ .Keywords }}">
+    {{ end }}
+    {{ if (ne .Author "") }}
+      <meta name="author" content="{{ .Author }}">
+    {{ end }}
+    <title>
+      {{ .Title }}
+    </title>
+    <link rel="stylesheet" href="bookdown.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  </head>
+  <body>
+    <div class="ribbon"></div>
+    <div class="body">
+      {{ .Body }}
+    </div>
+  </body>
+  <footer>
+    <div>
+      <span><a href="index.html">Home</a></span>
+      {{ if (ne .Prev "") }}
+        <span><a href="{{ .Prev }}">Prev</a></span>
+      {{ end }}
+      {{ if (ne .Next "") }}
+        <span><a href="{{ .Next }}">Next</a></span>
+      {{ end }}
+      <span><a href="https://github.com/forstmeier/bookdown">GitHub</a></span>
+    </div>
+  </footer>
+</html>
